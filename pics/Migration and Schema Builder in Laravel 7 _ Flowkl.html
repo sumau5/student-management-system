@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<!-- saved from url=(0088)https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script async="" referrerpolicy="unsafe-url" type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/v2"></script>
+        <title>Migration and Schema Builder in Laravel 7 | Flowkl</title>
+
+        <!-- SEO start -->
+        
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <meta name="title" content="Migration and Schema Builder in Laravel 7 | Flowkl">
+        <meta name="description" content="Laravel provides Migration and Schema classes for manipulating database tables. It is independent of database type. Migration is useful in version control.">
+        <meta name="csrfmiddlewaretoken" content="XSHonGadMcCA78RDYU6m2JLLUy0DSI3A">
+        <meta name="author" content="Harish Kumar">
+
+        <!-- graph search start -->
+        <meta property="og:locale" content="en_US">
+        <meta property="og:type" content="
+article 
+">
+        <meta property="og:title" content="Migration and Schema Builder in Laravel 7 | Flowkl">
+        <meta property="og:url" content="https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/">
+        <meta property="og:image" content="https://res.cloudinary.com/findalltogether/image/upload/v1445903397/d0gobu1piuksx7p64klm.jpg">
+        <meta property="og:site_name" content="Flowkl">
+        <meta property="og:description" content="Laravel provides Migration and Schema classes for manipulating database tables. It is independent of database type. Migration is useful in version control.">
+        <!-- graph search end -->
+
+        <!-- twitter SEO start -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Migration and Schema Builder in Laravel 7 | Flowkl">
+        <meta name="twitter:description" content="Laravel provides Migration and Schema classes for manipulating database tables. It is independent of database type. Migration is useful in version control.">
+        <meta name="twitter:site" content="@findalltogether">
+        <meta name="twitter:domain" content="findalltogether">
+        <!-- twitter SEO end -->
+        <meta itemprop="image" content="">
+        
+<meta property="og:updated_time" content="Oct. 31, 2020, 6:26 a.m.">
+
+<meta property="article:section" content="Laravel,Web Development,Web Development">
+<meta property="article:modified_time" content="Oct. 31, 2020, 6:26 a.m.">
+
+
+
+
+
+        <!-- SEO end -->
+        
+        <link rel="stylesheet" type="text/css" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/ionicons.min.css">
+        <link rel="stylesheet" type="text/css" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/bootstrap-theme2.css">
+        
+<link rel="stylesheet" type="text/css" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/syntax.css">
+
+        <link rel="stylesheet" type="text/css" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/style.css">
+        
+        <link id="favicon" rel="icon" type="image/png" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/findalltogether-logo-50_50_u6d6q0.png">
+        
+	<script src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(5).txt"></script><script src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/osd.js.download"></script><script src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(6).txt"></script><script src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(7).txt" id="google_shimpl"></script><script async="" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/analytics.js.download"></script><script>
+          if (!window.location.href.startsWith('https://www.flowkl.com') && !window.location.href.startsWith('https://flowkl.com')) {
+            const path = window.location.href.split('?');
+
+            if (path.length === 1 || path[1] === '' || path[1] === '/') {
+              window.location.href = 'https://www.flowkl.com';
+            } else {
+              path[1].split('&').map(function(p, i) {
+                const query = p.split('=');
+        
+                if (query['0'] === 'proxy') {
+                  window.location.href = 'https://www.flowkl.com' + query[1];
+                }
+              })
+            }
+          }
+        </script>
+        
+        
+        
+        <script data-ad-client="ca-pub-3224905059349112" async="" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(8).txt" data-checked-head="true"></script>
+	
+        
+    <script src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/embed.js.download" data-timestamp="1612778687269"></script><script charset="utf-8" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/main.js.download"></script><meta http-equiv="origin-trial" content="A9ZgbRtm4pU3oZiuNzOsKcC8ppFSZdcjP2qYcdQrFKVzkmiWH1kdYY1Mi9x7G8+PS8HV9Ha9Cz0gaMdKsiVZIgMAAAB7eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiVHJ1c3RUb2tlbnMiLCJleHBpcnkiOjE2MjYyMjA3OTksImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9"><meta http-equiv="origin-trial" content="A3HucHUo1oW9s+9kIKz8mLkbcmdaj5lxt3eiIMp1Nh49dkkBlg1Fhg4Fd/r0vL69mRRA36YutI9P/lJUfL8csQoAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiQ29udmVyc2lvbk1lYXN1cmVtZW50IiwiZXhwaXJ5IjoxNjI2MjIwNzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><style id="shr-common">.shr-hide{display:none !important}@media print{.shr-no-print{display:none !important}}</style><link rel="preload" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(9).txt" as="script"><script type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(9).txt"></script><link rel="preload" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(10).txt" as="script"><script type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(10).txt"></script><script charset="utf-8" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/moment_timeline_tweet.ae149926685a43cb146e35371430188e.js.download"></script><script charset="utf-8" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/timeline.687eed636a16648c9f0b1f72d7fa68bd.js.download"></script><meta name="shareaholic:site_id" content="3f59fc329949d48520ae20895947febb"><style id="shr-outline-style" type="text/css">.shr-outline{outline:none}</style><script charset="utf-8" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/cookieconsent.js.download"></script><script charset="utf-8" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/sharebuttons.js.download"></script><link rel="prefetch" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.0f8247d0689845c86c5bfcd8efd31a28.css"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.38ea27189bdb723eae3dabf5bc7b8c0b.js"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.ec325e7c33ae32f082a2c57fe0c859bd.js"><link rel="prefetch" as="script" href="https://disqus.com/next/config.js"><script src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/alfie_v4.63f1ab6d6b9d5807dc0c94ef3fe0b851.js.download" async="" charset="UTF-8"></script><link rel="preload" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(9).txt" as="script"><script type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(9).txt"></script><link rel="preload" href="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(10).txt" as="script"><script type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/f(10).txt"></script></head>
+    <body data-new-gr-c-s-check-loaded="14.993.0" data-gr-ext-installed="" style="" aria-hidden="false">
+        <!-- header menu section -->
+        <header class="main-header navbar-top">
+            <!-- all navigations start -->
+            <nav class="navbar navbar-fixed-top">
+                <div class="container-fluid header-navbar">
+                    <div class="navbar-header">
+                        <button type="button" id="navbar-toggle" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#g-menu" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://www.flowkl.com/"> <img height="30" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/findalltogether-logo-50_50_u6d6q0.png" alt="Programming and web developemnt | Flowkl Logo">
+                        <div class="hidden-xs pull-right">
+                            <button class="btn page-name-btn">
+                                Home &nbsp; <span class="fa fa-chevron-circle-down"></span>
+                            </button>
+                        </div> </a>
+                        <!-- top menu start -->
+                        <div>
+                            <form id="head-form" class="navbar-form header-search" method="get" action="https://www.flowkl.com/search/">
+                                <input name="s" required="required" type="text" class="form-control pull-left" placeholder="Search Here">
+                                <button class="btn" id="sbtn">
+                                    <i class="fa fa-search pull-left"></i>
+                                </button>
+                            </form>
+                            <!-- center navigation section start (show on scroll) -->
+                            <div id="opt" style="display: none;">
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        <button class="btn btn-default pull-left" id="toggle-search">
+                                            <i class="ion-search" style="font-size:18px"></i>
+                                        </button>
+                                    </li>
+                                    <li class="hidden">
+                                        <a href="https://www.flowkl.com/forum/ask/"><i class="ion-chatboxes ion-4"></i> <span class="">Start Discussion</span></a>
+                                    </li>
+                                    <li class="hidden">
+                                        <a href="https://www.flowkl.com/forum/"> <i class="fa fa-users fa-4"></i> <span class="">Forum</span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.flowkl.com/tutorial/web-development/simple-blog-application-in-laravel-7/"> <i class="ion-ios-paper ion-4"></i> <span class="">Laravel Blog Demo</span> </a>
+                                    </li>
+                                    <li class="">
+                                        <a href="https://www.flowkl.com/tutorial/web-development/learn-building-cms-from-scratch-with-todo-list-demo-in-php-and-mysql/"> <i class="fa fa-list fa-4"></i> <span class="">TODO Demo</span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.flowkl.com/page/how-to-submit-a-guest-post/"><i class="ion-ribbon-b ion-4"></i> <span class="">Contribute Here</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- center navigation section end -->
+                            <!-- top right navigation start -->
+                            <ul class="nav navbar-nav navbar-right">
+                                
+                                <li>
+                                    <a href="https://www.flowkl.com/accounts/login/">Login</a>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/accounts/register/">Sign Up</a>
+                                </li>
+                                
+                            </ul>
+                            <!-- top right navigation end -->
+                        </div>
+                        <!-- top menu end -->
+                        <!-- global menu start (Desktop top left and mobile right) -->
+                        <div id="g-menu" class="g-menu">
+                            <form class="navbar-form header-search visible-xs" method="get" action="https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/">
+                                <input name="s" required="required" type="text" class="form-control pull-left" placeholder="Search Here">
+                                <button class="btn">
+                                    <i class="fa fa-search pull-left"></i>
+                                </button>
+                            </form>
+                            <ul class="nav nav-stacked">
+                                <li>
+                                    <a href="https://www.flowkl.com/"><span class="fat-icon fat-icon-home"></span><span>Home</span></a>
+                                </li>
+                                <li class="hidden">
+                                    <a href="https://www.flowkl.com/forum/ask/"><i class="ion-chatboxes ion-4"></i> <span class="">Start Discussion</span></a>
+                                </li>
+                                <li class="hidden">
+                                    <a href="https://www.flowkl.com/forum/"><i class="fa fa-users fa-4"></i> <span class="">Forum</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/category/web-development/"> <span class="">Web Development</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/category/mobile-development/"> <span class="">Mobile Development</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/category/php/"><span class="">PHP</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/category/laravel/"> <span class="">Laravel</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/category/python/"> <span class="">Python</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/category/java/"> <span class="">Java</span></a>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/category/ruby/"> <span class="">Ruby</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- global menu end -->
+                    </div>
+                </div>
+                <!-- secondary menu start (Desktop only) -->
+                <div class="container-fluid smnu" id="smnu" style="display: table;">
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <div>
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="https://www.flowkl.com/tutorial/web-development/simple-blog-application-in-laravel-7/"> <i class="ion-ios-paper ion-4"></i> <span class="">Laravel Blog Demo</span> </a>
+                                </li>
+                                <li class="">
+                                    <a href="https://www.flowkl.com/tutorial/web-development/learn-building-cms-from-scratch-with-todo-list-demo-in-php-and-mysql/"> <i class="fa fa-list fa-4"></i> <span class="">TODO Demo</span> </a>
+                                </li>
+                                <li class="hidden">
+                                    <a href="https://www.flowkl.com/forum/ask/"><i class="ion-chatboxes ion-4"></i> <span class="">Start Discussion</span></a>
+                                </li>
+                                <li class="hidden">
+                                    <a href="https://www.flowkl.com/forum/"> <i class="fa fa-users fa-4"></i> <span class="">Forum</span> </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/page/how-to-submit-a-guest-post/"><i class="ion-ribbon-b ion-4"></i> <span class="">Contribute Here</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- secondary menu end -->
+            </nav>
+        </header>
+
+        <!-- body of the page -->
+        <section class="main" style="height: auto !important;">
+            <div id="container" class="container main-container" style="margin-top: 108px; height: auto !important;">
+                
+                
+                
+                <div class="fat_main" style="height: auto !important;">
+                    <div class="row no_margin" style="height: auto !important;">
+                        <!-- page content start -->
+                        <div class="col-xs-12 col-md-9 no_padding content-section">
+                          <!--top page heading start -->
+                          
+                          <div class="fat_banner clearfix">
+                            
+    
+    <img class="hidden-xs page-thumbnail" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/d0gobu1piuksx7p64klm.jpg">
+    
+
+                            <div class="fat_bread_crumb">
+                              <h1>Migration and Schema Builder in Laravel 7</h1>
+                              
+                            </div>
+                          </div>
+                          
+                          <!-- top page heading end -->
+                          
+<div class="fat_content" style="overflow:hidden">
+    
+    <div class="post_info">
+        <span><i class="fa fa-clock-o"></i>October 31, 2020</span>
+        
+        <span><i class="fa fa-user"></i> By <a href="https://www.flowkl.com/user/1/">Harish Kumar</a></span>
+        
+        
+        <span><i class="fa fa-share-alt"></i> <a href="https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/#">Share</a></span>
+    </div>
+    
+
+    <div class="clearfix10"></div>
+    
+    <p></p>
+    
+
+    <section class="entry-content">
+        <p>Laravel provides Migration, and Schema classes for manipulating database tables. It is independent of database type. Migration is useful in version control. For creating a migration, first give command:</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line">php artisan make:migration table_name
+</div></li></ol></pre></div>
+
+<p>It will create a new file in folder database &gt;&gt; migrations with name year_month_day_seconds_table_name.php. For example, above command will create file with name something like 2014_10_12_000000_table_name.php. The default code of this file is:</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line"><span style="color: #BC7A00">&lt;?php</span>
+</div></li><li><div class="line">
+</div></li><li><div class="line"><span style="color: #008000; font-weight: bold">use</span> Illuminate\Database\Migrations\Migration;
+</div></li><li><div class="line"><span style="color: #008000; font-weight: bold">use</span> Illuminate\Database\Schema\Blueprint;
+</div></li><li><div class="line"><span style="color: #008000; font-weight: bold">use</span> Illuminate\Support\Facades\Schema;
+</div></li><li><div class="line">
+</div></li><li><div class="line"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">TableName</span> <span style="color: #008000; font-weight: bold">extends</span> Migration {
+</div></li><li><div class="line">  <span style="color: #BA2121; font-style: italic">/**</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   * Run the migrations.</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   *</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   * @return void</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   */</span>
+</div></li><li><div class="line">  <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">function</span> <span style="color: #0000FF">up</span>()
+</div></li><li><div class="line">  {
+</div></li><li><div class="line">    <span style="color: #408080; font-style: italic">//</span>
+</div></li><li><div class="line">  }
+</div></li><li><div class="line">  <span style="color: #BA2121; font-style: italic">/**</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   * Reverse the migrations.</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   *</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   * @return void</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   */</span>
+</div></li><li><div class="line">  <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">function</span> <span style="color: #0000FF">down</span>()
+</div></li><li><div class="line">  {
+</div></li><li><div class="line">    <span style="color: #408080; font-style: italic">//</span>
+</div></li><li><div class="line">  }
+</div></li><li><div class="line">}
+</div></li></ol></pre></div>
+
+<p>The Blueprint class provides SQL for creating columns in tables. TableName class has two functions, up() and down(). The code for manipulating the table is written in the up() function. The down() function is used to undo the work of up() function. For example, if up() function contains the code for creating a table then down() function will take the code for deleting that table.</p>
+<h3>Creating and deleting table:</h3>
+<p><em>Schema::create()</em> and <em>Schema::drop()</em> are used for creating and deleting table, respectively. In database &gt;&gt; migrations folder, there is a default file named <em>2014_10_12_000000_create_users_table.php</em>. The code inside this file is:</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line"><span style="color: #BC7A00">&lt;?php</span>
+</div></li><li><div class="line">
+</div></li><li><div class="line"><span style="color: #008000; font-weight: bold">use</span> Illuminate\Database\Migrations\Migration;
+</div></li><li><div class="line"><span style="color: #008000; font-weight: bold">use</span> Illuminate\Database\Schema\Blueprint;
+</div></li><li><div class="line"><span style="color: #008000; font-weight: bold">use</span> Illuminate\Support\Facades\Schema;
+</div></li><li><div class="line">
+</div></li><li><div class="line"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">CreateUsersTable</span> <span style="color: #008000; font-weight: bold">extends</span> Migration {
+</div></li><li><div class="line">  <span style="color: #BA2121; font-style: italic">/**</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   * Run the migrations.</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   *</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   * @return void</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   */</span>
+</div></li><li><div class="line">  <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">function</span> <span style="color: #0000FF">up</span>()
+</div></li><li><div class="line">  {
+</div></li><li><div class="line">    Schema<span style="color: #666666">::</span><span style="color: #7D9029">create</span>(<span style="color: #BA2121">'users'</span>, <span style="color: #008000; font-weight: bold">function</span>(Blueprint <span style="color: #19177C">$table</span>)
+</div></li><li><div class="line">    {
+</div></li><li><div class="line">      <span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">id</span>();
+</div></li><li><div class="line">      <span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">string</span>(<span style="color: #BA2121">'name'</span>);
+</div></li><li><div class="line">      <span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">string</span>(<span style="color: #BA2121">'email'</span>)<span style="color: #666666">-&gt;</span><span style="color: #7D9029">unique</span>();
+</div></li><li><div class="line">      <span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">string</span>(<span style="color: #BA2121">'password'</span>, <span style="color: #666666">60</span>);
+</div></li><li><div class="line">      <span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">rememberToken</span>();
+</div></li><li><div class="line">      <span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">timestamps</span>();
+</div></li><li><div class="line">    });
+</div></li><li><div class="line">  }
+</div></li><li><div class="line">  <span style="color: #BA2121; font-style: italic">/**</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   * Reverse the migrations.</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   *</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   * @return void</span>
+</div></li><li><div class="line"><span style="color: #BA2121; font-style: italic">   */</span>
+</div></li><li><div class="line">  <span style="color: #008000; font-weight: bold">public</span> <span style="color: #008000; font-weight: bold">function</span> <span style="color: #0000FF">down</span>()
+</div></li><li><div class="line">  {
+</div></li><li><div class="line">    Schema<span style="color: #666666">::</span><span style="color: #7D9029">drop</span>(<span style="color: #BA2121">'users'</span>);
+</div></li><li><div class="line">  }
+</div></li><li><div class="line">}
+</div></li></ol></pre></div>
+
+<p>The <em>create()</em> function takes two arguments: table name and operations on the columns of that table (it is a <a rel="nofollow" target="_blank" title="Closure in PHP" href="https://php.net/manual/en/class.closure.php" data-mce-href="http://php.net/manual/en/class.closure.php">closure</a>). The drop() function takes only table name as argument. In above code, we are creating a table <em>users</em> in up function and deleting this table in down function.</p>
+<h3>Operations on columns:</h3>
+<h4>Add:</h4>
+<p>Syntax for adding column is:</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line"><span style="color: #BC7A00">&lt;?php</span>
+</div></li><li><div class="line"><span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">column_type</span>(<span style="color: #BA2121">'column_name'</span>)<span style="color: #666666">-&gt;</span><span style="color: #7D9029">more_operation</span>();
+</div></li></ol></pre></div>
+
+<p>List of all column types is here: <a rel="nofollow" target="_blank" title="Schema builder in Laravel 5" href="http://laravel.com/docs/5.0/schema#adding-columns" data-mce-href="http://laravel.com/docs/5.0/schema#adding-columns">Schema Builder in Laravel</a>.</p>
+<h4>Change:</h4>
+<p>For changing column use change() function. For example, for changing <em>name</em> column (size 20 to 50) use:</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line"><span style="color: #BC7A00">&lt;?php</span>
+</div></li><li><div class="line"><span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">string</span>(<span style="color: #BA2121">'name'</span>, <span style="color: #666666">50</span>)<span style="color: #666666">-&gt;</span><span style="color: #7D9029">change</span>();
+</div></li></ol></pre></div>
+
+<h4>Rename:</h4>
+<p>For rename use renameColumn() function.</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line"><span style="color: #BC7A00">&lt;?php</span>
+</div></li><li><div class="line"><span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">renameColumn</span>(<span style="color: #BA2121">'from'</span>, <span style="color: #BA2121">'to'</span>);
+</div></li></ol></pre></div>
+
+<h4>Delete:</h4>
+<p>For deleting a column use dropColumn() function like</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line"><span style="color: #BC7A00">&lt;?php</span>
+</div></li><li><div class="line"><span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">dropColumn</span>(<span style="color: #BA2121">'votes'</span>);
+</div></li></ol></pre></div>
+
+<h4>Adding and dropping Indexes:</h4>
+<p>For adding indexes use indexes functions like:</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line"><span style="color: #BC7A00">&lt;?php</span>
+</div></li><li><div class="line"><span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">string</span>(<span style="color: #BA2121">'email'</span>)<span style="color: #666666">-&gt;</span><span style="color: #7D9029">unique</span>();
+</div></li></ol></pre></div>
+
+<p>Similarly, for dropping indexes use corresponding functions like</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line"><span style="color: #BC7A00">&lt;?php</span>
+</div></li><li><div class="line"><span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">dropUnique</span>(<span style="color: #BA2121">'users_email_unique'</span>);
+</div></li></ol></pre></div>
+
+<h4>Adding Foreign Key:</h4>
+<p>For adding a foreign key, first define the column as <em>unsigned</em> type and then add reference (foreign column) and foreign table with it.</p>
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><ol><li><div class="line"><span style="color: #BC7A00">&lt;?php</span>
+</div></li><li><div class="line">
+</div></li><li><div class="line">
+</div></li><li><div class="line"><span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">unsignedBigInteger</span>(<span style="color: #BA2121">'user_id'</span>);
+</div></li><li><div class="line"><span style="color: #19177C">$table</span><span style="color: #666666">-&gt;</span><span style="color: #7D9029">foreign</span>(<span style="color: #BA2121">'&lt;span data-pwa-id="pwa-9B9976868EE5B619D6246A30B6906C48" data-pwa-category="" data-pwa-hint="Unknown word: author_id" data-pwa-suggestions="third~authorized~thread~authorised~Thursday" data-pwa-dictionary-word="author_id" class="pwa-mark-done"&gt;user_id&lt;/span&gt;'</span>)
+</div></li><li><div class="line">        <span style="color: #666666">-&gt;</span><span style="color: #7D9029">references</span>(<span style="color: #BA2121">'id'</span>)
+</div></li><li><div class="line">        <span style="color: #666666">-&gt;</span><span style="color: #7D9029">on</span>(<span style="color: #BA2121">'users'</span>)
+</div></li><li><div class="line">        <span style="color: #666666">-&gt;</span><span style="color: #7D9029">onDelete</span>(<span style="color: #BA2121">'cascade'</span>);
+</div></li></ol></pre></div>
+
+<p>Here we are referencing <em>user_id</em> column to <em>id</em> column of <em>users</em> table.</p>
+<p>Also see <a title="Django vs Laravel vs Ruby on rails" href="https://www.flowkl.com/article/web-development/django-vs-laravel-vs-rails/" target="_blank" data-mce-href="https://www.flowkl.com/wp/webdevelopment/framework/laravel/django-vs-laravel-vs-rails/">Django vs Laravel vs Ruby on rails</a></p>
+<h3>Checking Existence:</h3>
+<p>For checking existence of a table/ column <em>use Schema::hasTable('table_name') </em>/<em> Schema::hasColumn('table_name', 'column_name')</em>.</p>
+<h3>Dropping Timestamps &amp; SoftDeletes:</h3>
+<p>For deleting timestamps and soft deletes use functions <em>$table-&gt;dropTimestamps();</em> and <em>$table-&gt;dropSoftDeletes();</em> respectively.</p>
+<h3>Migration commands:</h3>
+<ol><li><strong>php artisan migrate</strong>: Update database. If you will run this command after configuring database settings then laravel will automatically create/ modify the database tables according to migrations defined in migrations folder. By default laravel will form three tables (users, failed_jobs and migrations). <em>migrations</em> table in database handles the migrations (store migration entries defined in migration folder).</li><li><strong>php artisan migrate:rollback</strong>: Undo last migration.</li><li><strong>php artisan migrate:reset</strong>: Undo all migrations. It will delete all tables from database except <em>migrations</em> table.</li><li><strong>php artisan migrate:refresh</strong>: Undo all migrations and then migrate again.</li></ol>
+<p></p>
+<h3>Further Reading:</h3>
+<ul><li><a href="https://www.flowkl.com/tutorial/web-development/laravel-framework-architecture/">Laravel framework architecture</a><br></li><li><a title="Basic larvel and controllers" href="https://www.flowkl.com/tutorial/web-development/basics-routing-and-controllers-in-laravel-5/" target="_blank" data-mce-href="http://www.flowkl.com/wp/webdevelopment/framework/laravel/basics-routing-and-controllers-in-laravel-5/">Basic routing and controllers</a></li><li><a title="Views in laravel 5" href="https://www.flowkl.com/tutorial/web-development/view-in-laravel-5/" target="_blank" data-mce-href="http://www.flowkl.com/wp/webdevelopment/framework/laravel/view-in-laravel-5/">View in Laravel</a></li><li><a title="Blade template in laravel" href="https://www.flowkl.com/tutorial/web-development/blade-template-in-laravel-5/" target="_blank" data-mce-href="http://www.flowkl.com/wp/webdevelopment/framework/laravel/blade-template-in-laravel-5/">Blade template in Laravel</a></li><li><a title="Database in laravel 5" href="https://www.flowkl.com/tutorial/web-development/database-in-laravel-5/" target="_blank" data-mce-href="http://www.flowkl.com/wp/webdevelopment/framework/laravel/database-in-laravel-5/">Database in Laravel 5</a></li></ul>
+    </section>
+
+    
+    <!-- Start Tags -->
+    <hr>
+    
+    <div class="post_tags">
+        <div class="tag-list">
+            <strong>Tags :</strong>
+	    <a href="https://www.flowkl.com/category/web-development/">Web Development</a>
+            
+            <a href="https://www.flowkl.com/category/laravel/">Laravel</a>
+            
+        </div>
+    </div>
+    <hr>
+    
+    <!-- End Tags -->
+    
+    <!-- Advertisement -->
+    <section class="clearfix">
+        
+    </section>
+    <!-- End Advertisement -->
+    <!-- Author Bio -->
+    <section class="margin-top-10">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a data-toggle="tab" href="https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/#autbox_about"><i class="fa fa-user"></i> About the Author</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/#autbox_posts"><i class="fa fa-list"></i> Latest Posts</a>
+            </li>
+        </ul>
+
+        <div class="tab-content author-bio">
+            <div id="autbox_about" class="tab-pane fade in active">
+                
+                <div class="autbox-avatar">
+                    
+                    <a class="author_avatar" href="https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/#"> <img src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/q61cvfp8dleviz5ycuua.jpg" alt="" class="avatar avatar-80 thumbnail" height="80" width="80"> </a>
+                    
+                </div>                
+                <div class="wpautbox-author-meta">
+                    <h4 class="wpautbox-name">About Harish Kumar</h4>
+                    Harish, a technical core team member at <a href="https://www.lyflink.com/">www.lyflink.com</a> with five year experience in full stack web and mobile development, spends most of his time on coding, reading, analysing and curiously following businesses environments. He is a non-graduate alumni from IIT Roorkee, Computer Science and frequently writes on both technical and business topics.
+                </div>
+                
+            </div>
+            <div id="autbox_posts" class="tab-pane fade">
+                <ul class="">
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/article/mobile-development/flutter-vs-react-native-contact-list-demo-performance-apk-size/">Flutter vs React Native - Contact List Demo - Performance &amp; APK Size</a><span class=""> - December 2, 2020</span>
+                    </li>
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/article/web-development/django-vs-laravel-vs-rails/">Django vs Laravel vs Rails</a><span class=""> - November 22, 2020</span>
+                    </li>
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/article/web-development/django-models-and-migrations-vs-laravel-eloquent-orm-and-migrations/">Django Models and Migrations vs Laravel Eloquent ORM and Migrations - Part 1</a><span class=""> - November 22, 2020</span>
+                    </li>
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/article/programming-language/python-vs-php-vs-ruby/">PYTHON vs PHP vs RUBY - 2021 Update</a><span class=""> - November 22, 2020</span>
+                    </li>
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/tutorial/web-development/simple-blog-application-in-laravel-7/">Laravel 8 tutorial with Blog example</a><span class=""> - November 8, 2020</span>
+                    </li>
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/article/web-development/passport-authentication-via-access-token-demo-in-laravel/">Passport authentication using access token demo in Laravel</a><span class=""> - November 7, 2020</span>
+                    </li>
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/">Migration and Schema Builder in Laravel 7</a><span class=""> - October 31, 2020</span>
+                    </li>
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/article/blogging/how-to-share-on-facebook-if-your-website-is-blocked-php-script/">How to share on facebook if your website is blocked</a><span class=""> - July 16, 2020</span>
+                    </li>
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/article/environment/air-pollution-pollutants-and-causes/">Air pollution: Pollutants and Causes</a><span class=""> - July 15, 2020</span>
+                    </li>
+                    
+                    <li>
+                        <a href="https://www.flowkl.com/article/history/the-causes-and-various-phases-of-cold-war/">The causes and various phases of Cold War</a><span class=""> - July 14, 2020</span>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- End Author Bio -->
+    
+
+    <!-- related posts start -->
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Related Articles</h3>
+        </div>
+        
+        <div class="col-sm-4 col-xs-12">
+            
+            <a href="https://www.flowkl.com/article/mobile-development/5-elite-and-imperative-hybrid-app-frameworks/"> <img style="max-width:200px" width="100%" class="thumbnail" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/uwtzsdivqe0cj1jq0mm1.png"> </a>
+            
+            With the expanding market of mobile apps, the developers are struggling to maintain the code bases for Native apps. M...
+            <h5><a href="https://www.flowkl.com/article/mobile-development/5-elite-and-imperative-hybrid-app-frameworks/">5 Elite and Imperative Hybrid App Frameworks</a></h5>
+        </div>
+        
+        <div class="col-sm-4 col-xs-12">
+            
+            <a href="https://www.flowkl.com/article/web-development/cheap-django-hosting/"> <img style="max-width:200px" width="100%" class="thumbnail" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/kd2wnbvyfwhecjlrd1ve.jpg"> </a>
+            
+            Django is a great framework in python. But all of the hosting do not provide django hosting in their shared or free h...
+            <h5><a href="https://www.flowkl.com/article/web-development/cheap-django-hosting/">Cheap Django Hosting</a></h5>
+        </div>
+        
+        <div class="col-sm-4 col-xs-12">
+            
+            <a href="https://www.flowkl.com/tutorial/web-development/blade-template-in-laravel-5/"> <img style="max-width:200px" width="100%" class="thumbnail" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/w4h3qhwrje8szytioxsd.png"> </a>
+            
+            Laravel provides blade template. Blade files are similar to php files and cover all features of php files. In additio...
+            <h5><a href="https://www.flowkl.com/tutorial/web-development/blade-template-in-laravel-5/">Blade Template in Laravel 7</a></h5>
+        </div>
+        
+    </div>
+    <!-- related posts end -->
+    
+
+    
+    <!-- Start Comments -->
+    <div id="post_comments">
+        <div class="clearfix10"></div>
+
+        <!-- Start Comments Form -->
+        
+        <div id="disqus_thread"><iframe id="dsq-app1738" name="dsq-app1738" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/saved_resource(4).html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 525px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+        <script>
+          /**
+          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+          var disqus_config = function () {
+          this.page.url = "https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/";  // Replace PAGE_URL with your page's canonical URL variable
+          this.page.identifier = "https://www.flowkl.com/tutorial/web-development/migration-and-schema-builder-in-laravel/"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+          };
+
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://findalltogether.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a rel="nofollow" target="_blank" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+        
+        <!-- End Comments Form -->
+    </div>
+    <!-- end comments -->
+    
+</div>
+
+                        </div>
+                        <!-- page content end -->
+                        
+                        <!-- right sidebar start -->
+                        <div class="col-xs-12 col-md-3 no_padding" style="height: auto !important; min-height: 0px !important;">
+                            <div class="fat_aside" style="height: auto !important;">
+                                
+                                
+                                <div class="fat_heading">
+                                    <h3>Complete Python Bootcamp: Go from zero to hero in Python 3</h3>
+                                </div>
+                                <div class="aside_block fat_ads">
+                                    <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/link?id=y1Qi03Bgvyg&amp;offerid=507388.567828&amp;type=2&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fcomplete-python-bootcamp%2F"><img border="0" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/567828_67d0.jpg"></a><img border="0" width="1" height="1" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/show">
+                                </div>
+                                
+                                
+                                
+                                <div class="fat_heading">
+                                    <h3>Top Posts</h3>
+                                </div>
+                                <ul class="fat_link_list margin-bottom-20">
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/web-development/passport-authentication-via-access-token-demo-in-laravel/"><i class="fa fa-caret-right"></i> Passport authentication using access token demo in Laravel </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/web-development/django-models-and-migrations-vs-laravel-eloquent-orm-and-migrations/"><i class="fa fa-caret-right"></i> Django Models and Migrations vs Laravel Eloquent ORM and Migrations </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/mobile-development/flutter-vs-react-native-contact-list-demo-performance-apk-size/"><i class="fa fa-caret-right"></i> Flutter vs React Native - Contact List Demo </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/tutorial/web-development/simple-blog-application-in-laravel-7/"><i class="fa fa-caret-right"></i> Simple blog application in laravel 7 </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/category/laravel/"><i class="fa fa-caret-right"></i> Laravel Tutorials </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/web-development/django-vs-laravel-vs-rails/"><i class="fa fa-caret-right"></i> Django vs Laravel vs Rails </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/programming-language/python-vs-php-vs-ruby/"><i class="fa fa-caret-right"></i> PYTHON vs PHP vs RUBY </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/web-development/top-books-for-web-development-in-2020/"><i class="fa fa-caret-right"></i> Best books for web development in 2020 </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/tutorial/web-development/learn-building-cms-from-scratch-with-todo-list-demo-in-php-and-mysql/"><i class="fa fa-caret-right"></i> Learn building CMS from scratch with todo list demo in PHP and MySQL </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/web-development/cms-vs-mvc-frameworks/"><i class="fa fa-caret-right"></i> CMS vs MVC Frameworks </a>
+                                    </li>
+                                    
+
+                                    <!--
+                                    <li>
+                                        <a href="#" class="view_all">View all top posts <i class="fa fa-chevron-circle-right"></i></a>
+                                    </li>
+                                    -->
+                                </ul>
+                                
+                                
+                                
+                                <div class="fat_heading">
+                                    <h3>Recent Posts</h3>
+                                </div>
+                                <ul class="fat_link_list margin-bottom-20">
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/marketing/how-can-you-overcome-the-various-types-of-barriers-to-communication/"><i class="fa fa-caret-right"></i> How can you overcome the various types of Barriers to communication? </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/politics/what-is-equality-how-the-concept-of-equality-is-related-to-the-concept-of-liberty/"><i class="fa fa-caret-right"></i> What is Equality? How the concept of equality is related to the concept of liberty? </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/politics/political-theory-and-its-liberal-view-in-the-modern-times/"><i class="fa fa-caret-right"></i> Political Theory and its Liberal view in the modern times </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/politics/the-feminist-view-of-political-theory/"><i class="fa fa-caret-right"></i> The feminist view of Political Theory </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/marketing/the-four-types-of-reading/"><i class="fa fa-caret-right"></i> The four types of reading </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/blogging/how-to-share-on-facebook-if-your-website-is-blocked-php-script/"><i class="fa fa-caret-right"></i> How to share on facebook if your website is blocked </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/web-development/frameworks-that-make-an-optimal-replacement-for-bootstrap/"><i class="fa fa-caret-right"></i> Frameworks That Make An Optimal Replacement For Bootstrap </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="https://www.flowkl.com/article/web-development/top-books-for-web-development-in-2020/"><i class="fa fa-caret-right"></i> Top books for web development in 2020 </a>
+                                    </li>
+                                    
+
+                                    <!--
+                                    <li>
+                                        <a href="#" class="view_all">View all top posts <i class="fa fa-chevron-circle-right"></i></a>
+                                    </li>
+                                    -->
+                                </ul>
+                                
+                                
+                                
+                                <div class="fat_heading">
+                                    <h3>The Complete Web Developer Course - Build 25 Websites</h3>
+                                </div>
+                                <div class="aside_block fat_ads">
+                                    <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/link?id=y1Qi03Bgvyg&amp;offerid=507388.764164&amp;type=2&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-complete-web-developer-course-2%2F"><img border="0" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/764164_de03_2.jpg"></a><img border="0" width="1" height="1" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/show(1)">
+                                </div>
+                                
+                                
+                                
+                                <div class="fat_heading">
+                                    <h3>Meet on Twitter</h3>
+                                </div>
+                                <div class="aside_block fat_ads">
+                                    <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" class="twitter-timeline twitter-timeline-rendered" style="position: static; visibility: visible; display: inline-block; width: 310px; height: 600px; padding: 0px; border: none; max-width: 100%; min-width: 180px; margin-top: 0px; margin-bottom: 0px; min-height: 200px;" __idm_frm__="365" data-widget-id="profile:Flowkl4" title="Twitter Timeline" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/saved_resource(5).html"></iframe> <script async="" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/widgets.js.download" charset="utf-8"></script>
+                                </div>
+                                
+                                
+                                
+                                <div class="fat_heading">
+                                    <h3>Subscribe</h3>
+                                </div>
+                                <div class="aside_block fat_ads" style="height: auto !important;">
+                                    <div id="subscriptionForm" class="clearfix" style="height: auto !important;"><div class="google-auto-placed" style="width: 100%; height: auto; clear: none; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-3224905059349112" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 432px;"><ins id="aswift_1_expand" style="display: inline-table; border: none; height: 432px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 324px; background-color: transparent;" tabindex="0" title="Advertisement" aria-label="Advertisement"><ins id="aswift_1_anchor" style="display: block; border: none; height: 432px; margin: 0px; padding: 0px; position: relative; visibility: visible; width: 324px; background-color: transparent; overflow: hidden;"><iframe id="aswift_1" name="aswift_1" style="left: 0px; position: absolute; top: 0px; border: 0px; width: 324px; height: 432px;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="324" height="432" frameborder="0" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/ads.html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!1" data-google-query-id="CJDa3pqH2u4CFUmYhQodM2UIYw" __idm_id__="1003851777" data-load-complete="true"></iframe></ins></ins></ins></div>
+          <form action="https://www.flowkl.com/subscribe/" method="post" class="form" role="form">
+               <p class="alert alert-info">Subscribe now and get weekly updates directly in your inbox!</p>
+               <input id="subscriptionLocationPath" type="hidden" name="path" value="/tutorial/web-development/migration-and-schema-builder-in-laravel/">
+                <div class="form-group text-left clearfix ">
+                    <label class="">Name</label>
+                    <input required="" class="form-control" maxlength="254" name="name" type="text">
+                </div>
+
+                <div class="form-group text-left clearfix ">
+                    <label class=" control-label">Email</label>
+                    <input required="" class="form-control" name="email" type="email">
+                </div>
+                <div class="form-group">
+                        <button style="width: 100%" type="submit" class="w-100 btn btn-default">
+                            Send me weekly updates
+                        </button>
+                </div>
+            </form>
+<div class="google-auto-placed" style="width: 100%; height: auto; clear: none; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-3224905059349112" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 250px;"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:324px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:324px;background-color:transparent;"></ins></ins></ins></div></div>
+
+<script>
+     document.getElementById('subscriptionLocationPath').value = window.location.pathname;
+     document.onscroll = function(){
+        return false;
+         var doc = document.documentElement;
+         var top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+         var form = document.getElementById('subscriptionForm');
+
+         if(window.innerWidth  > 968 && top > 2000) {
+              form.className = 'clearfix fixed-subscription';
+         } else {
+              form.className = 'clearfix';             
+         }
+     }
+</script>
+                                </div>
+                                
+                                
+                                
+                                <div class="fat_heading">
+                                    <h3>Any Course on Udemy in $6 (INR 455)</h3>
+                                </div>
+                                <div class="aside_block fat_ads">
+                                    <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/fs-bin/click?id=y1Qi03Bgvyg&amp;offerid=507388.1346&amp;subid=0&amp;type=4"><img border="0" alt="Development Category (English)300x250" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/snuw0fkdnh7w0emf7z2f.png"></a>
+                                </div>
+                                
+                                
+                                
+                                <div class="fat_heading">
+                                    <h3>Best Udemy Courses</h3>
+                                </div>
+                                <ul class="fat_link_list margin-bottom-20">
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/link?id=y1Qi03Bgvyg&amp;offerid=507388.1250824&amp;type=2&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fprojects-in-laravel-learn-laravel-building-10-projects%2F"><i class="fa fa-caret-right"></i> Projects in Laravel: Learn Laravel Building 10 Projects </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fpython-for-data-science-and-machine-learning-bootcamp%2F"><i class="fa fa-caret-right"></i> Data Science and Machine Learning Bootcamp </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Freact-redux%2F"><i class="fa fa-caret-right"></i> Modern React with Redux </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-complete-web-developer-course-2%2F"><i class="fa fa-caret-right"></i> Learn Web Development by building 25 websites </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Freact-the-complete-guide-incl-redux%2F"><i class="fa fa-caret-right"></i> React - The Complete Guide (incl Hooks, React Router, Redux) </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fmachinelearning%2F"><i class="fa fa-caret-right"></i> Machine Learning A-Z™: Hands-On Python &amp; R In Data Science </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F"><i class="fa fa-caret-right"></i> The Web Developer Bootcamp </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fcomplete-python-bootcamp%2F"><i class="fa fa-caret-right"></i> Python Bootcamp: Go from zero to hero </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-complete-wordpress-website-business-course%2F"><i class="fa fa-caret-right"></i> The Complete WordPress Website Business Course </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Freact-redux-tutorial%2F"><i class="fa fa-caret-right"></i> Advanced React and Redux </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/deeplink?id=y1Qi03Bgvyg&amp;mid=39197&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fjava-the-complete-java-developer-course%2F"><i class="fa fa-caret-right"></i> Java Programming Masterclass for Software Developers </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a rel="nofollow" target="_blank" href="https://click.linksynergy.com/link?id=y1Qi03Bgvyg&amp;offerid=507388.758582&amp;type=2&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fphp-with-laravel-for-beginners-become-a-master-in-laravel%2F"><i class="fa fa-caret-right"></i> PHP with Laravel for beginners - Become a Master in Laravel </a>
+                                    </li>
+                                    
+
+                                    <!--
+                                    <li>
+                                        <a href="#" class="view_all">View all top posts <i class="fa fa-chevron-circle-right"></i></a>
+                                    </li>
+                                    -->
+                                </ul>
+                                
+                                
+                                
+                                <div class="fat_heading">
+                                    <h3>PHP with Laravel for beginners - Become a Master in Laravel</h3>
+                                </div>
+                                <div class="aside_block fat_ads">
+                                    <a href="https://click.linksynergy.com/link?id=y1Qi03Bgvyg&amp;offerid=507388.758582&amp;type=2&amp;murl=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fphp-with-laravel-for-beginners-become-a-master-in-laravel%2F" rel="nofollow"><img border="0" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/758582_ea1f.jpg"></a><img border="0" width="1" height="1" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/show(2)">
+                                </div>
+                                
+                                
+                            </div>
+                        <div class="google-auto-placed" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-3224905059349112" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 280px;"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:372px;background-color:transparent;"><ins id="aswift_3_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:372px;background-color:transparent;"></ins></ins></ins></div></div>
+                        <!-- right sidebar end -->
+                        
+                    </div>
+                </div>
+                
+                
+            </div>
+        </section>
+        <!-- footer of the page -->
+        <div class="container clearfix"><hr></div>
+        <div class="google-auto-placed" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-3224905059349112" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 280px;"><ins id="aswift_4_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:1200px;background-color:transparent;"><ins id="aswift_4_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:1200px;background-color:transparent;"></ins></ins></ins></div><div class="footer-v1">
+            <div class="footer"><div class="google-auto-placed" style="width: 100%; height: auto; clear: both; text-align: center;"><ins data-ad-format="auto" class="adsbygoogle adsbygoogle-noablate" data-ad-client="ca-pub-3224905059349112" data-adsbygoogle-status="done" style="display: block; margin: 10px auto; background-color: transparent; height: 280px;"><ins id="aswift_5_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:1200px;background-color:transparent;"><ins id="aswift_5_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:1200px;background-color:transparent;"></ins></ins></ins></div>
+                <div class="container">
+                    <div class="row">
+                        <!-- About -->
+                        <div class="col-md-4 md-margin-bottom-40">
+                            <img id="logo-footer" class="footer-logo thumbnail margin-bottom-10" height="50px" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/findalltogether-logo-50_50_u6d6q0.png" alt="Programming and web developemnt | Flowkl">
+                            <p>
+                                Flowkl shares valuable, and reliable knowledge on various topics concerning the latest technology and business that a technical core team member needs to know.
+                            </p>
+                        </div><!--/col-md-4-->
+                        <!-- End About -->
+
+                        <!-- Link List -->
+                        <div class="col-md-4 md-margin-bottom-40">
+                            <div class="headline">
+                                <h2>Site Sections</h2>
+                            </div>
+                            <ul class="list-unstyled link-list">
+                                <li>
+                                    <a href="https://www.flowkl.com/forum/">Forums</a><i class="fa fa-angle-right"></i>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/forum/ask/">Start Discussion</a><i class="fa fa-angle-right"></i>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/">Tutorials</a><i class="fa fa-angle-right"></i>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/">Member Area</a><i class="fa fa-angle-right"></i>
+                                </li>
+                            </ul>
+                        </div><!--/col-md-4-->
+                        <!-- End Link List -->
+
+                        <!-- Link List -->
+                        <div class="col-md-4 md-margin-bottom-40">
+                            <div class="headline">
+                                <h2>Useful Links</h2>
+                            </div>
+                            <ul class="list-unstyled link-list">
+                                <li>
+                                    <a href="https://www.flowkl.com/page/about/">About us</a><i class="fa fa-angle-right"></i>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/page/contact/">Contact Us</a><i class="fa fa-angle-right"></i>
+                                </li>
+                                <li>
+                                    <a href="https://www.flowkl.com/page/how-to-submit-a-guest-post/">Contribute Here</a><i class="fa fa-angle-right"></i>
+                                </li>
+                            </ul>
+                        </div><!--/col-md-4-->
+                        <!-- End Link List -->
+
+                    </div>
+                </div>
+            </div><!--/footer-->
+
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                2020 © All Rights Reserved.
+                                <a href="https://www.flowkl.com/page/privacy-policy/">Privacy Policy</a> | <a href="https://www.flowkl.com/page/terms-of-services/">Terms of Service</a>
+                            </p>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="col-md-6">
+                            <ul class="footer-socials list-inline">
+                                <li>
+                                    <a rel="nofollow" target="_blank" href="https://www.facebook.com/programmingAndWebdevelopment" class="tooltips" data-toggle="tooltip" data-placement="top" title="Facebook"> <i class="fa fa-facebook"></i> </a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" target="_blank" href="https://github.com/28harishkumar" class="tooltips" data-toggle="tooltip" data-placement="top" title="GitHub"> <i class="fa fa-github"></i> </a>
+                                </li>
+                                <li>
+                                    <a rel="nofollow" target="_blank" href="https://twitter.com/Flowkl4" class="tooltips" data-toggle="tooltip" data-placement="top" title="Twitter"> <i class="fa fa-twitter"></i> </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End Social Links -->
+                    </div>
+                </div>
+            </div><!--/copyright-->
+        </div>
+        <!-- end footer -->
+
+        <!-- popup section -->
+        <div class="">
+        </div>
+
+        <!-- hidden section -->
+        <div class="hidden">
+            
+        </div>
+
+	
+        <!-- bottom js files -->
+        <script type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/jquery-2.0.3.min.js.download"></script>
+        <script type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/bootstrap.min.js.download"></script>
+        <script type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/jquery-ui.min.js.download"></script>
+        <script type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/jquery.slimscroll.min.js.download"></script>
+        <!--
+        <script type="text/javascript" src="/static/includes/jquery.slimscroll.min.js"></script>
+        <script type="text/javascript" src="/static/lib/bind.js"></script>
+        -->
+        <script type="text/javascript" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/main.js(1).download"></script>
+        <script type="text/javascript">
+
+			 $('#messageScroll').slimScroll({
+			 height: '200px'
+			 });
+
+			$('[data-toggle="tooltip"]').tooltip();
+        </script><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div>
+        
+        <!-- Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-58526164-8', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- End Analytics Code -->
+        
+        
+<script>
+	$(function() {
+		$('.cmt_rd_field').val(window.location.href);
+	}); 
+</script>
+
+	
+    
+
+<ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important;"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;" tabindex="0" title="Advertisement" aria-label="Advertisement"><ins id="aswift_0_anchor" style="display:block;border:none;height:0px;margin:0;padding:0;position:relative;visibility:visible;width:0px;background-color:transparent;"><iframe id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0;width:undefinedpx;height:undefinedpx;" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" frameborder="0" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/ads(1).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" data-google-container-id="a!0" data-load-complete="true"></iframe></ins></ins></ins><iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/widget_iframe.96fd96193cc66c3e11d4c5e4c7c7ec97.html" title="Twitter settings iframe" style="display: none;"></iframe><iframe id="SHR" title="shr-utils" __idm_frm__="358" style="display: none; border: none;" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/saved_resource(6).html"></iframe><div class="shareaholic-canvas shareaholic-resolved-canvas shareaholic-ui" data-app="cookie_consent" style="" id="shr_canvas1"></div><div class="shareaholic-canvas shareaholic-share-buttons-container shareaholic-resolved-canvas shareaholic-ui" data-app="floated_share_buttons" style="visibility: visible;" id="shr_canvas2"><div translate="no">
+  <div class="shareaholic-share-buttons-container shareaholic-ui shr-no-print shareaholic-flat shareaholic- shareaholic-floated shareaholic- shareaholic-vertical shareaholic-right-align shareaholic-right-align shareaholic-flat  shareaholic-floated shareaholic-vertical" style="top:15%">
+    <div class="shareaholic-show-container shareaholic-right-alignment shareaholic-right-alignment">
+      <img alt="arrow" class="shareaholic-show-hide-arrow" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAABQCAMAAABoKAbvAAAAS1BMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD////m3hxmAAAAF3RSTlMAAwUOESQpPURmb3OMkZm0u9bb6u76/EQ4+xQAAAABYktHRBibaYUeAAABLElEQVRIx5XXRxLCMBBEUUROIsPc/6YU2BiFCd29/1V+YIM8O6YZN7ksyUBuazKQx5YM5LUnA5HTnAwI+hjg9F8A06cApUsxiF4GEL0KEHodAPQmiOnSLaD3QUBXAp+uBS5dDTy6GDPpVmDSzcCi24FBdwKdLu4Uuh8o9CDo6VHQ0cOgpQuwio4EFR0KSjoWFHQw+NMF3kjHg5FOBAOdCb50KvjQyeDABfcNd0nXFYc+L7iPNSfqi3vuuFvjw2WCL5cIBi4e5EQ9ohMXDP5cLCi4UFBykSAn6se44YZBy42CjhsEPdcPcqL+dlWuE+hcOzC4ZmBxrSAn6oDlcNXA42qBy1UCn9sHOVFH6ZDbBDG3DgBuFSDcMsj4+yLBnQKU+wtg7hjg3GGZfD1+A48urIHzHtL7AAAAAElFTkSuQmCC">
+    </div>
+
+    <div class="shareaholic-share-buttons-wrapper shareaholic-ui ">
+      <div class="shareaholic-share-buttons-animation-wrapper shr-hide shareaholic-item-quit-right-animation">
+        <div class="shareaholic-share-buttons-heading shareaholic-custom">
+          <div class="shareaholic-share-buttons-heading-text" style="line-height:normal;">
+            
+          </div>
+        </div>
+
+        <ul class="shareaholic-share-buttons shareaholic-no-margin-padding-important shareaholic-share-button-invisible">
+
+          <li data-service="twitter" class="shareaholic-share-button" style="display:list-item;" title="Twitter">
+            <div class="shareaholic-share-button-container shr-outline shareaholic-service-twitter shareaholic-service-default" style="" aria-label="Tweet to Twitter" tabindex="0" role="button">
+              <div class="shareaholic-share-button-sizing " style="">
+                <a class="shareaholic-service-icon shareaholic-service-twitter shareaholic-service-default" style=""></a>
+                <span class="shr-share-button-verb" style="color:#fff!important">
+                  Tweet
+                </span>
+              </div>
+            </div>
+          </li>
+          <li data-service="facebook" class="shareaholic-share-button" style="display:list-item;" title="Facebook">
+            <div class="shareaholic-share-button-container shr-outline shareaholic-service-facebook shareaholic-service-default" style="" aria-label="Share to Facebook" tabindex="0" role="button">
+              <div class="shareaholic-share-button-sizing " style="">
+                <a class="shareaholic-service-icon shareaholic-service-facebook shareaholic-service-default" style=""></a>
+                <span class="shr-share-button-verb" style="color:#fff!important">
+                  Share
+                </span>
+              </div>
+            </div>
+          </li>
+          <li data-service="pinterest" class="shareaholic-share-button" style="display:list-item;" title="Pinterest">
+            <div class="shareaholic-share-button-container shr-outline shareaholic-service-pinterest shareaholic-service-default" style="" aria-label="Pin to Pinterest" tabindex="0" role="button">
+              <div class="shareaholic-share-button-sizing " style="">
+                <a class="shareaholic-service-icon shareaholic-service-pinterest shareaholic-service-default" style=""></a>
+                <span class="shr-share-button-verb" style="color:#fff!important">
+                  Pin
+                </span>
+              </div>
+            </div>
+          </li>
+          <li data-service="email_this" class="shareaholic-share-button" style="display:list-item;" title="Email This">
+            <div class="shareaholic-share-button-container shr-outline shareaholic-service-email_this shareaholic-service-default" style="" aria-label="Mail to Email This" tabindex="0" role="button">
+              <div class="shareaholic-share-button-sizing " style="">
+                <a class="shareaholic-service-icon shareaholic-service-email_this shareaholic-service-default" style=""></a>
+                <span class="shr-share-button-verb" style="color:#fff!important">
+                  Mail
+                </span>
+              </div>
+            </div>
+          </li>
+          <li data-service="all" class="shareaholic-share-button shareaholic-share-button-all" style="display:list-item;" title="More Options">
+            <div class="shareaholic-share-button-container shr-outline shareaholic-service-all shareaholic-service-default" style="" aria-label="Share to More Options" tabindex="0" role="button">
+              <div class="shareaholic-share-button-sizing " style="">
+                <a class="shareaholic-service-icon shareaholic-service-all shareaholic-service-default" style=""></a>
+                <span class="shr-share-button-verb" style="color:#fff!important">
+                  Share
+                </span>
+              </div>
+            </div>
+          </li>
+      </ul></div>
+      <div class="shareaholic-hide-container shr-hide">
+        <img alt="arrow" class="shareaholic-show-hide-arrow shareaholic-orientation-left" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAABQCAMAAABoKAbvAAAAS1BMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD////m3hxmAAAAF3RSTlMAAwUOESQpPURmb3OMkZm0u9bb6u76/EQ4+xQAAAABYktHRBibaYUeAAABLElEQVRIx5XXRxLCMBBEUUROIsPc/6YU2BiFCd29/1V+YIM8O6YZN7ksyUBuazKQx5YM5LUnA5HTnAwI+hjg9F8A06cApUsxiF4GEL0KEHodAPQmiOnSLaD3QUBXAp+uBS5dDTy6GDPpVmDSzcCi24FBdwKdLu4Uuh8o9CDo6VHQ0cOgpQuwio4EFR0KSjoWFHQw+NMF3kjHg5FOBAOdCb50KvjQyeDABfcNd0nXFYc+L7iPNSfqi3vuuFvjw2WCL5cIBi4e5EQ9ohMXDP5cLCi4UFBykSAn6se44YZBy42CjhsEPdcPcqL+dlWuE+hcOzC4ZmBxrSAn6oDlcNXA42qBy1UCn9sHOVFH6ZDbBDG3DgBuFSDcMsj4+yLBnQKU+wtg7hjg3GGZfD1+A48urIHzHtL7AAAAAElFTkSuQmCC">
+      </div>
+    </div>
+  </div>
+</div>
+<style id="shr-social-styles">.shr-debug{font-weight:bolder;cursor:pointer;color:#008000}.shareaholic-canvas{clear:both;-webkit-transition:none;-moz-transition:none;transition:none}.shareaholic-ui button,.shareaholic-ui .shareaholic-ui-button{border:0;box-shadow:none;text-shadow:none;font-size:12px;padding:6px 10px !important;border-radius:3px;background:transparent;display:inline-block;margin:2px;border:1px solid transparent;line-height:16px;color:#555;cursor:pointer;height:initial;text-transform:initial}.shareaholic-ui button:hover,.shareaholic-ui .shareaholic-ui-button:hover{color:#000;font-weight:inherit}.shareaholic-ui button.shareaholic-button-primary,.shareaholic-ui .shareaholic-ui-button.shareaholic-button-primary{background-color:#52a8e8;background-image:-webkit-linear-gradient(top,#52a8e8,#377ad0);border:1px solid #3f81ae;border-color:#3f81ae #2e68a1 #1f5496;box-shadow:inset 0 1px 0 0 #72baeb,0 1px 2px 0 #c3c3c3;color:#fff;font-weight:bold;text-shadow:0 -1px 1px #3275bb;-webkit-appearance:none}.shareaholic-ui button.shareaholic-ui-disabled,.shareaholic-ui .shareaholic-ui-button.shareaholic-ui-disabled{background-color:#ccc;background-image:none;border-color:#bbb;box-shadow:none;color:#999;cursor:default;opacity:.5;text-shadow:none}.shareaholic-ui button.shareaholic-icon-only,.shareaholic-ui .shareaholic-ui-button.shareaholic-icon-only{padding:0}.shareaholic-ui button.shareaholic-icon-only.shareaholic-icon-16,.shareaholic-ui .shareaholic-ui-button.shareaholic-icon-only.shareaholic-icon-16{padding:4px}.shareaholic-ui button.shareaholic-icon-only.shareaholic-icon-16 a,.shareaholic-ui .shareaholic-ui-button.shareaholic-icon-only.shareaholic-icon-16 a{height:16px;width:16px}.shareaholic-ui button.shareaholic-icon-only.shareaholic-icon-24,.shareaholic-ui .shareaholic-ui-button.shareaholic-icon-only.shareaholic-icon-24{padding:0}.shareaholic-ui button.shareaholic-icon-only.shareaholic-icon-24 a,.shareaholic-ui .shareaholic-ui-button.shareaholic-icon-only.shareaholic-icon-24 a{height:24px;width:24px}.shareaholic-ui button.shareaholic-medium,.shareaholic-ui .shareaholic-ui-button.shareaholic-medium{font-size:14px;padding:4px 15px}.shareaholic-ui .shareaholic-ui-icon{display:inline-block;vertical-align:middle;width:16px;height:16px;background-position:50% 50%;background-repeat:no-repeat}.shareaholic-ui .shareaholic-ui-icon.shareaholic-ui-loading-grey{background-image:url("https://m9m6e2w5.stackpathcdn.com/v2/images_0ecbeeff/spin16_666666_trans.gif")}.shareaholic-ui .shareaholic-ui-icon.shareaholic-ui-logo{width:85px;background-image:url("https://m9m6e2w5.stackpathcdn.com/v2/images_0ecbeeff/spin16_666666_trans.gif")}.shareaholic-ui input[type="text"],.shareaholic-ui textarea{border:1px solid #ddd;-webkit-transition:all .3s;-moz-transition:all .3s;transition:all .3s;background:#fff none;border-radius:3px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;font-size:14px;padding:10px 8px;color:#333}.shareaholic-ui input[type="text"]:focus,.shareaholic-ui textarea:focus{border-color:#3c9ee8;box-shadow:0 0 2px 1px #2695e8;outline:none}.shareaholic-tooltip{font-family:'lucida grande',tahoma,verdana,arial,sans-serif;background-color:#000;text-align:center;padding:3px 8px 3px 8px;color:#fff;font-weight:normal;font-size:12px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;z-index:10000000}.shareaholic-media-buttons .shareaholic-share-buttons-container ul.shareaholic-share-buttons{padding:0 !important;margin:0 !important}.shareaholic-show-hide-arrow{height:12px;width:8px;opacity:.5}.shareaholic-hide-container{text-align:left;cursor:pointer}.shareaholic-hide-container.shareaholic-left-alignment{text-align:right}.shareaholic-hide-container.shareaholic-left-alignment .shareaholic-show-hide-arrow{-ms-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg);height:12px;width:8px}.shareaholic-show-container{width:100%;height:12px;padding-left:5px;position:absolute;top:15%;cursor:pointer}.shareaholic-show-container.shareaholic-right-alignment{padding-left:0}.shareaholic-show-container.shareaholic-right-alignment .shareaholic-show-hide-arrow{-ms-transform:rotate(180deg);-webkit-transform:rotate(180deg);transform:rotate(180deg);margin-right:5px}.shareaholic-item-quit-left-animation{animation:exit .3s 1;animation-fill-mode:forwards}.shareaholic-item-enter-left-animation{animation:enter .3s 1;animation-fill-mode:forwards}.shareaholic-item-quit-right-animation{animation:exit_right .3s 1;animation-fill-mode:forwards}.shareaholic-item-enter-right-animation{animation:enter_right .3s 1;animation-fill-mode:forwards}.shr-element-hide{display:none;left:-100%}.shr-element-show{display:block;left:0}.shareaholic-share-arrow-version-1{transform:scale(.7,.7) translate(-115%,115%) rotateZ(20deg)}.shareaholic-share-arrow-version-1.shareaholic-mini,.shareaholic-share-arrow-version-1.shareaholic-rectangle{transform:scale(.5,.5) translate(-135%,135%) rotateZ(20deg)}.shareaholic-share-arrow-version-2{transform:scale(.7,.7) translate(-120%,100%) rotateZ(10deg)}.shareaholic-share-arrow-version-2.shareaholic-mini,.shareaholic-share-arrow-version-2.shareaholic-rectangle{transform:scale(.5,.5) translate(-150%,140%) rotateZ(10deg)}.shareaholic-share-arrow-version-3{transform:scale(.7,.7) translate(-120%,120%) rotateZ(15deg)}.shareaholic-share-arrow-version-3.shareaholic-mini,.shareaholic-share-arrow-version-3.shareaholic-rectangle{transform:scale(.5,.5) translate(-140%,140%) rotateZ(15deg)}.shareaholic-share-arrow-version-4{transform:scale(.8,.8) translate(-110%,95%)}.shareaholic-share-arrow-version-4.shareaholic-mini,.shareaholic-share-arrow-version-4.shareaholic-rectangle{transform:scale(.6,.6) translate(-125%,115%)}@keyframes exit{0%{left:0}100%{left:-80px}}@-webkit-keyframes exit{0%{left:0}100%{left:-80px}}@keyframes enter{0%{left:-40px}100%{left:0}}@-webkit-keyframes enter{0%{left:-40px}100%{left:0}}@keyframes exit_right{0%{left:0}100%{left:80px}}@-webkit-keyframes exit_right{0%{left:0}100%{left:80px}}@keyframes enter_right{0%{left:40px}100%{left:0}}@-webkit-keyframes enter_right{0%{left:40px}100%{left:0}}@font-face{font-family:'shareaholic-icons';font-display:block;src:url("https://m9m6e2w5.stackpathcdn.com/v2/fonts_0ecbeeff/shareaholic-icons.eot");src:url("https://m9m6e2w5.stackpathcdn.com/v2/fonts_0ecbeeff/shareaholic-icons.eot?#iefix") format("embedded-opentype"),url("https://m9m6e2w5.stackpathcdn.com/v2/fonts_0ecbeeff/shareaholic-icons.woff") format("woff"),url("https://m9m6e2w5.stackpathcdn.com/v2/fonts_0ecbeeff/shareaholic-icons.ttf") format("truetype"),url("https://m9m6e2w5.stackpathcdn.com/v2/fonts_0ecbeeff/shareaholic-icons.svg#shareaholic-icons") format("svg")}font-weight normal{font-style:normal}a.shareaholic-service-icon.shareaholic-service-default{box-shadow:inset 0 3px 3px -3px #fff;border:1px solid rgba(0,0,0,0.15);border-radius:4px;background-image:none;box-sizing:border-box;position:relative;margin:0;padding:0;overflow:hidden;line-height:1.1em;color:#fff !important;display:block !important;cursor:pointer;font-size:24px;height:40px;width:40px;text-shadow:none;text-decoration:none}a.shareaholic-service-icon:before{font-family:'shareaholic-icons' !important;font-style:normal !important;font-weight:normal !important;font-variant:normal !important;line-height:1.1em !important;text-transform:none !important;color:unset;position:absolute;top:7px;left:7px;speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;display:block}a.shareaholic-service-icon:after{display:block}.shareaholic-service-placeholder{border:3px dotted #d6d6d6;background-color:#f1f2f2}ul.shareaholic-share-buttons.shareaholic-mini .shareaholic-service-icon,ul.shareaholic-mini .shareaholic-service-icon{font-size:14px;height:20px;width:20px;background-image:none;border-radius:2px}ul.shareaholic-share-buttons.shareaholic-mini .shareaholic-service-icon:before,ul.shareaholic-mini .shareaholic-service-icon:before{top:2px;left:2px}.shareaholic-share-buttons-container .shareaholic-share-button-container ul.shareaholic-share-buttons li.shareaholic-share-button:hover{opacity:.65}.shareaholic-share-buttons-container.shareaholic-mini li.shareaholic-share-button{background:rgba(0,0,0,0) !important;font-size:14px;height:20px;width:20px}.shareaholic-share-buttons-container.shareaholic-mini li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon{font-size:14px;height:20px;width:20px;border-radius:2px}.shareaholic-share-buttons-container.shareaholic-mini li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{top:2px;left:2px}.shareaholic-share-buttons-container.shareaholic-flat li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon{box-shadow:none;border:none;border-radius:0}.shareaholic-share-buttons-container.shareaholic-flat li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{top:3px;left:3px}.shareaholic-share-buttons-container.shareaholic-flat:not(.shareaholic-mini) li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{left:8px;top:8px}.shareaholic-share-buttons-container.shareaholic-flat.shareaholic-mini:not(.shareaholic-mobile.shareaholic-bottom-align) li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon{font-size:14px}.shareaholic-share-buttons-container.shareaholic-flat.shareaholic-mini:not(.shareaholic-mobile.shareaholic-bottom-align) li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{top:3px;left:3px}.shareaholic-share-buttons-container.shareaholic-flat.shareaholic-large li.shareaholic-share-button .shareaholic-share-button-container{height:70px}.shareaholic-share-buttons-container.shareaholic-flat.shareaholic-large li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon{font-size:32px;height:70px;width:70px}.shareaholic-share-buttons-container.shareaholic-flat.shareaholic-large li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{top:19px;left:19px}.shareaholic-share-buttons-container.shareaholic-round li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon{font-size:24px;border-radius:50%;box-shadow:none;border:none}.shareaholic-share-buttons-container.shareaholic-round li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{top:8px;left:8px}.shareaholic-share-buttons-container.shareaholic-round.shareaholic-mini li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon{font-size:12px;height:20px;width:20px;border-radius:50% !important}.shareaholic-share-buttons-container.shareaholic-round.shareaholic-mini li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{top:4px;left:4px}.shareaholic-share-buttons-container.shareaholic-rectangle li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon{text-align:left;font-size:13px;height:20px;width:70px;border-radius:2px}.shareaholic-share-buttons-container.shareaholic-rectangle li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{top:2px;left:3px}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-flat li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{top:3px;left:4px}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-flat.shareaholic-round li.shareaholic-share-button .shareaholic-share-button-container{border-radius:0}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-flat.shareaholic-round li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon{border-radius:20px}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-flat.shareaholic-round li.shareaholic-share-button .shareaholic-share-button-container .shareaholic-service-icon:before{top:3px;left:7px}.shareaholic-service-default{background-color:#94a9ac}a.shareaholic-service-default:before{content:' \e00f'}.shareaholic-service-about_me{background-color:#054a76}a.shareaholic-service-about_me:before{content:' \e000'}.shareaholic-service-aim{background-color:#1d8698}a.shareaholic-service-aim:before{content:' \e001'}.shareaholic-service-all{background-color:#45a147}a.shareaholic-service-all:before{content:' \e002'}.shareaholic-service-amazon{background-color:#000}a.shareaholic-service-amazon:before{content:' \e003'}.shareaholic-service-aol_mail{background-color:#a70a4f}a.shareaholic-service-aol_mail:before{content:' \e004'}.shareaholic-service-arto{background-color:#83b859}a.shareaholic-service-arto:before{content:' \e005'}.shareaholic-service-baidu{background-color:#006cb7}a.shareaholic-service-baidu:before{content:' \e006'}.shareaholic-service-bbb{background-color:#002b80}a.shareaholic-service-bbb:before{content:' \e007'}.shareaholic-service-behance{background-color:#000}a.shareaholic-service-behance:before{content:' \e008'}.shareaholic-service-bit_ly{background-color:#ee6123}a.shareaholic-service-bit_ly:before{content:' \e009'}.shareaholic-service-blogger_post{background-color:#fd792f}a.shareaholic-service-blogger_post:before{content:' \e00a'}.shareaholic-service-bloglovin{background-color:#4cd1fa}a.shareaholic-service-bloglovin:before{content:' \e00b'}.shareaholic-service-box_net{background-color:#1c88e9}a.shareaholic-service-box_net:before{content:' \e00c'}.shareaholic-service-buffer{background-color:#231f20}a.shareaholic-service-buffer:before{content:' \e00d'}.shareaholic-service-buzzster{background-color:#147611}a.shareaholic-service-buzzster:before{content:' \e00e'}.shareaholic-service-delicious{background-color:#2d395a}a.shareaholic-service-delicious:before{content:' \e010'}.shareaholic-service-digg{background-color:#080808}a.shareaholic-service-digg:before{content:' \e011'}.shareaholic-service-diigo{background-color:#0b5fa0}a.shareaholic-service-diigo:before{content:' \e012'}.shareaholic-service-disqus{background-color:#2e9fff}a.shareaholic-service-disqus:before{content:' \e013'}.shareaholic-service-dribbble{background-color:#ea4c89}a.shareaholic-service-dribbble:before{content:' \e014'}.shareaholic-service-ebay{background-color:#f00}a.shareaholic-service-ebay:before{content:' \e015'}.shareaholic-service-email_this{background-color:#939598}a.shareaholic-service-email_this:before{content:' \e016'}.shareaholic-service-etsy{background-color:#e06331}a.shareaholic-service-etsy:before{content:' \e017'}.shareaholic-service-evernote{background-color:#6bb130}a.shareaholic-service-evernote:before{content:' \e018'}.shareaholic-service-facebook{background-color:#3b5998}a.shareaholic-service-facebook:before{content:' \e019'}.shareaholic-service-fancy{background-color:#4da3da}a.shareaholic-service-fancy:before{content:' \e01d'}.shareaholic-service-fark{background-color:#706da3}a.shareaholic-service-fark:before{content:' \e01e'}.shareaholic-service-favorite{background-color:#ca0814}a.shareaholic-service-favorite:before{content:' \e01f'}.shareaholic-service-feedly{background-color:#2bb24c}a.shareaholic-service-feedly:before{content:' \e020'}.shareaholic-service-five_hundred_px{background-color:#1a171b}a.shareaholic-service-five_hundred_px:before{content:' \e021'}.shareaholic-service-flickr{background-color:#ff0084}a.shareaholic-service-flickr:before{content:' \e022'}.shareaholic-service-flipboard{background-color:#b01e1f}a.shareaholic-service-flipboard:before{content:' \e023'}.shareaholic-service-foursquare{background-color:#f94877}a.shareaholic-service-foursquare:before{content:' \e024'}.shareaholic-service-github{background-color:#181616}a.shareaholic-service-github:before{content:' \e025'}.shareaholic-service-google_apps_mail{background-color:#58595b}a.shareaholic-service-google_apps_mail:before{content:' \e026'}.shareaholic-service-google_bookmarks{background-color:#18841f}a.shareaholic-service-google_bookmarks:before{content:' \e027'}.shareaholic-service-google_classroom{background-color:#25a667}a.shareaholic-service-google_classroom:before{content:' \e028'}.shareaholic-service-google_mail{background-color:#b72731}a.shareaholic-service-google_mail:before{content:' \e029'}.shareaholic-service-google_plus{background-color:#dd4b39}a.shareaholic-service-google_plus:before{content:' \e02a'}.shareaholic-service-hootsuite{background-color:#1a3560}a.shareaholic-service-hootsuite:before{content:' \e02b'}.shareaholic-service-hotmail{background-color:#0072c6}a.shareaholic-service-hotmail:before{content:' \e02c'}.shareaholic-service-houzz{background-color:#7bc043}a.shareaholic-service-houzz:before{content:' \e02d'}.shareaholic-service-inbound_org{background-color:#0e4553}a.shareaholic-service-inbound_org:before{content:' \e02e'}.shareaholic-service-instagram{background-color:#e4405f}a.shareaholic-service-instagram:before{content:' \e02f'}.shareaholic-service-instapaper{background-color:#414042}a.shareaholic-service-instapaper:before{content:' \e030'}.shareaholic-service-itunes_podcast{background-color:#794696}a.shareaholic-service-itunes_podcast:before{content:' \e031'}.shareaholic-service-kik{background-color:#82bc23}a.shareaholic-service-kik:before{content:' \e032'}.shareaholic-service-kindle_it{background-color:#f90}a.shareaholic-service-kindle_it:before{content:' \e033'}.shareaholic-service-line_me{background-color:#00c300}a.shareaholic-service-line_me:before{content:' \e034'}.shareaholic-service-linkedin{background-color:#007bb6}a.shareaholic-service-linkedin:before{content:' \e035'}.shareaholic-service-livejournal{background-color:#00b0ea}a.shareaholic-service-livejournal:before{content:' \e036'}.shareaholic-service-mail{background-color:#2858c1}a.shareaholic-service-mail:before{content:' \e037'}.shareaholic-service-meneame{background-color:#f56b36}a.shareaholic-service-meneame:before{content:' \e03a'}.shareaholic-service-mister_wong{background-color:#ab0415}a.shareaholic-service-mister_wong:before{content:' \e03b'}.shareaholic-service-mix{background-color:#e06331}a.shareaholic-service-mix:before{content:' \e03c'}.shareaholic-service-mixi{background-color:#d1ad5a}a.shareaholic-service-mixi:before{content:' \e03d'}.shareaholic-service-msdn{background-color:#000}a.shareaholic-service-msdn:before{content:' \e03e'}.shareaholic-service-myspace{background-color:#231f20}a.shareaholic-service-myspace:before{content:' \e03f'}.shareaholic-service-odnoklassniki{background-color:#e67e17}a.shareaholic-service-odnoklassniki:before{content:' \e040'}.shareaholic-service-onenote{background-color:#80397b}a.shareaholic-service-onenote:before{content:' \e041'}.shareaholic-service-pinboard_in{background-color:#0c52be}a.shareaholic-service-pinboard_in:before{content:' \e043'}.shareaholic-service-pinterest{background-color:#cb2027}a.shareaholic-service-pinterest:before{content:' \e044'}.shareaholic-service-plurk{background-color:#cf682f}a.shareaholic-service-plurk:before{content:' \e045'}.shareaholic-service-pocket{background-color:#ee4055}a.shareaholic-service-pocket:before{content:' \e046'}.shareaholic-service-printfriendly{background-color:#a0b979}a.shareaholic-service-printfriendly:before{content:' \e048'}.shareaholic-service-quora{background-color:#d84745}a.shareaholic-service-quora:before{content:' \e049'}.shareaholic-service-reddit{background-color:#7d99ad}a.shareaholic-service-reddit:before{content:' \e04b'}.shareaholic-service-rss{background-color:#fd882a}a.shareaholic-service-rss:before{content:' \e04c'}.shareaholic-service-shareaholic_archive{background-color:#ca0814}a.shareaholic-service-shareaholic_archive:before{content:' \e04e'}.shareaholic-service-skype{background-color:#00aff0}a.shareaholic-service-skype:before{content:' \e04f'}.shareaholic-service-slack{background-color:#563c82}a.shareaholic-service-slack:before{content:' \e050'}.shareaholic-service-slideshare{background-color:#0177b5}a.shareaholic-service-slideshare:before{content:' \e051'}.shareaholic-service-sms{background-color:#1598d5}a.shareaholic-service-sms:before{content:' \e052'}.shareaholic-service-soundcloud{background-color:#f30}a.shareaholic-service-soundcloud:before{content:' \e054'}.shareaholic-service-soup_io{background-color:#cd011a}a.shareaholic-service-soup_io:before{content:' \e055'}.shareaholic-service-spotify{background-color:#23cf5f}a.shareaholic-service-spotify:before{content:' \e056'}.shareaholic-service-stackoverflow{background-color:#fe7a15}a.shareaholic-service-stackoverflow:before{content:' \e057'}.shareaholic-service-stumbleupon{background-color:#ec5838}a.shareaholic-service-stumbleupon:before{content:' \e059'}.shareaholic-service-stumpedia{background-color:#fd9d0f}a.shareaholic-service-stumpedia:before{content:' \e05a'}.shareaholic-service-symphony{background-color:#cb2027}a.shareaholic-service-symphony:before{content:' \e05b'}.shareaholic-service-techmeme{background-color:#174a61}a.shareaholic-service-techmeme:before{content:' \e05c'}.shareaholic-service-tinyurl{background-color:#009}a.shareaholic-service-tinyurl:before{content:' \e05e'}.shareaholic-service-tripadvisor{background-color:#589442}a.shareaholic-service-tripadvisor:before{content:' \e060'}.shareaholic-service-tumblr{background-color:#35465d}a.shareaholic-service-tumblr:before{content:' \e061'}.shareaholic-service-twitter{background-color:#2ba9e1}a.shareaholic-service-twitter:before{content:' \e062'}.shareaholic-service-twitthat{background-color:#0895cd}a.shareaholic-service-twitthat:before{content:' \e063'}.shareaholic-service-typepad_post{background-color:#becb4f}a.shareaholic-service-typepad_post:before{content:' \e064'}.shareaholic-service-viadeo{background-color:#000}a.shareaholic-service-viadeo:before{content:' \e065'}.shareaholic-service-vimeo{background-color:#1ab7ea}a.shareaholic-service-vimeo:before{content:' \e067'}.shareaholic-service-vine{background-color:#00b488}a.shareaholic-service-vine:before{content:' \e068'}.shareaholic-service-vk{background-color:#4d75a3}a.shareaholic-service-vk:before{content:' \e069'}.shareaholic-service-wanelo{background-color:#1a96d2}a.shareaholic-service-wanelo:before{content:' \e06a'}.shareaholic-service-we_heart_it{background-color:#fe7da3}a.shareaholic-service-we_heart_it:before{content:' \e06b'}.shareaholic-service-weibo{background-color:#d82829}a.shareaholic-service-weibo:before{content:' \e06d'}.shareaholic-service-whatsapp{background-color:#29a71a}a.shareaholic-service-whatsapp:before{content:' \e06e'}.shareaholic-service-windows_live_favorites{background-color:#6ba2c5}a.shareaholic-service-windows_live_favorites:before{content:' \e06f'}.shareaholic-service-wordpress_blog{background-color:#58585b}a.shareaholic-service-wordpress_blog:before{content:' \e070'}.shareaholic-service-wykop{background-color:#f48339}a.shareaholic-service-wykop:before{content:' \e071'}.shareaholic-service-xing{background-color:#026466}a.shareaholic-service-xing:before{content:' \e072'}.shareaholic-service-yahoo{background-color:#9b2c96}a.shareaholic-service-yahoo:before{content:' \e073'}.shareaholic-service-yammer{background-color:#45b0d3}a.shareaholic-service-yammer:before{content:' \e074'}.shareaholic-service-yc_hacker_news{background-color:#fd7c3a}a.shareaholic-service-yc_hacker_news:before{content:' \e075'}.shareaholic-service-yelp{background-color:#c41200}a.shareaholic-service-yelp:before{content:' \e076'}.shareaholic-service-youtube{background-color:#cd201f}a.shareaholic-service-youtube:before{content:' \e077'}.shareaholic-service-yummly{background-color:#e06331}a.shareaholic-service-yummly:before{content:' \e078'}.shareaholic-service-zillow_digs{background-color:#06c}a.shareaholic-service-zillow_digs:before{content:' \e079'}.shareaholic-service-telegram{background-color:#2ca5e0}a.shareaholic-service-telegram:before{content:' \e05d'}.shareaholic-service-viber{background-color:#7c529e}a.shareaholic-service-viber:before{content:' \e066'}.shareaholic-service-trello{background-color:#0079bf}a.shareaholic-service-trello:before{content:' \e05f'}.shareaholic-service-snapchat{background-color:#ffdf00}a.shareaholic-service-snapchat:before{content:' \e053'}.shareaholic-service-wechat{background-color:#7bb32e}a.shareaholic-service-wechat:before{content:' \e06c'}.shareaholic-service-meetup{background-color:#e0393e}a.shareaholic-service-meetup:before{content:' \e039'}.shareaholic-service-patreon{background-color:#f96854}a.shareaholic-service-patreon:before{content:' \e042'}.shareaholic-service-strava{background-color:#fc4c02}a.shareaholic-service-strava:before{content:' \e058'}.shareaholic-service-medium{background-color:#000}a.shareaholic-service-medium:before{content:' \e038'}.shareaholic-service-facebook_messenger{background-color:#3b5998}a.shareaholic-service-facebook_messenger:before{content:' \e01c'}.shareaholic-service-print{background-color:#58595b}a.shareaholic-service-print:before{content:' \e047'}.shareaholic-floated-share-buttons-container{display:none}@media only screen and (min-width:700px) and (orientation:landscape){.shareaholic-floated-share-buttons-container{display:inherit}}@media only screen and (min-width:400px) and (orientation:portrait){.shareaholic-floated-share-buttons-container{display:inherit}}.shareaholic-share-buttons-container{margin:0 auto;position:relative;font-family:'lucida grande',tahoma,verdana,arial,sans-serif;-webkit-transition:all .25s;-moz-transition:all .25s;transition:all .25s}.shareaholic-share-buttons-container li.shareaholic-total-count{font-size:10px !important;line-height:1.4em;margin:12px 20px 0 0 !important;padding:0 !important;text-align:center;height:40px;left:14px;top:-7px;position:relative;float:left;list-style:none !important;background:none !important;display:list-item}.shareaholic-share-buttons-container li.shareaholic-total-count:before{display:none}.shareaholic-share-buttons-container li.shareaholic-total-count .shareaholic-total-count-bg{width:100%;height:100%;position:absolute}.shareaholic-share-buttons-container li.shareaholic-total-count .shareaholic-total-share-count{position:relative;top:4px;font-size:14px;font-weight:600}.shareaholic-share-buttons-container li.shareaholic-total-count .shareaholic-total-share-count.shareaholic-no-label{top:0 !important}.shareaholic-share-buttons-container li.shareaholic-total-count .shareaholic-shares-label{position:relative;top:4px;padding:0 2px}.shareaholic-share-buttons-container.shareaholic-diglett li.shareaholic-total-count{height:30px;top:3px}.shareaholic-share-buttons-container.shareaholic-diglett li.shareaholic-total-count .shareaholic-total-share-count{top:1px}.shareaholic-share-buttons-container.shareaholic-diglett li.shareaholic-total-count .shareaholic-shares-label{top:2px}.shareaholic-share-buttons-container.shareaholic-diglett.shareaholic-vertical li.shareaholic-total-count{left:10px;margin-bottom:5px}.shareaholic-share-buttons-container.shareaholic-diglett.shareaholic-vertical li.shareaholic-total-count .shareaholic-total-share-count{top:0}.shareaholic-share-buttons-container.shareaholic-vertical li.shareaholic-total-count{float:none;left:0;margin:0 auto !important}.shareaholic-share-buttons-container.shareaholic-vertical.shareaholic-top-counter li.shareaholic-total-count{top:0}.shareaholic-share-buttons-container.shareaholic-rectangle:not(.shareaholic-vertical) li.shareaholic-total-count{height:20px;top:-7px;padding:0 5px}.shareaholic-share-buttons-container.shareaholic-rectangle:not(.shareaholic-vertical) li.shareaholic-total-count .shareaholic-total-share-count{display:inline;vertical-align:middle;line-height:20px;top:auto}.shareaholic-share-buttons-container.shareaholic-rectangle:not(.shareaholic-vertical) li.shareaholic-total-count .shareaholic-shares-label{display:inline;vertical-align:middle;line-height:20px;top:auto}.shareaholic-share-buttons-container.shareaholic-rectangle:not(.shareaholic-vertical).shareaholic-top-counter li.shareaholic-total-count{top:28px}.shareaholic-share-buttons-container.shareaholic-mini:not(.shareaholic-vertical) li.shareaholic-total-count{height:20px;top:-7px;padding:0 5px}.shareaholic-share-buttons-container.shareaholic-mini:not(.shareaholic-vertical) li.shareaholic-total-count .shareaholic-total-share-count{display:inline;vertical-align:middle;line-height:20px;top:auto}.shareaholic-share-buttons-container.shareaholic-mini:not(.shareaholic-vertical) li.shareaholic-total-count .shareaholic-shares-label{display:inline;vertical-align:middle;line-height:20px;top:auto}.shareaholic-share-buttons-container.shareaholic-top-counter li.shareaholic-total-count{top:28px}.shareaholic-share-buttons-container.shareaholic-floated li.shareaholic-total-count{margin-bottom:-7px !important;line-height:40px}.shareaholic-share-buttons-container.shareaholic-floated li.shareaholic-total-count .shareaholic-total-share-count{top:-6px}.shareaholic-share-buttons-container.shareaholic-floated li.shareaholic-total-count .shareaholic-shares-label{top:-32px}.shareaholic-share-buttons-container.shareaholic-mobile li.shareaholic-total-count{float:left;top:0;left:0;margin:0 !important}.shareaholic-share-buttons-container.shareaholic-mobile.shareaholic-inset-counter li.shareaholic-total-count{height:56px}.shareaholic-share-buttons-container.shareaholic-mobile.shareaholic-inset-counter li.shareaholic-total-count .shareaholic-total-share-count{top:0}.shareaholic-share-buttons-container.shareaholic-mobile.shareaholic-inset-counter li.shareaholic-total-count .shareaholic-shares-label{top:-24px}.shareaholic-share-buttons-container .shareaholic-share-buttons-wrapper{display:inline-block;text-align:left;-webkit-transition:none;-moz-transition:none;transition:none}.shareaholic-share-buttons-container .shareaholic-share-buttons-wrapper-with-headline{margin-left:25px}.shareaholic-share-buttons-container.shareaholic-center-align{text-align:center}.shareaholic-share-buttons-container.shareaholic-left-align{text-align:left}.shareaholic-share-buttons-container.shareaholic-right-align{text-align:right}.shareaholic-share-buttons-container ul.shareaholic-share-buttons{float:none !important;background:none !important;list-style:none;overflow:hidden;margin:0 0 0 10px !important;padding:0 !important;line-height:0;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;-o-user-select:none;user-select:none;display:block}.shareaholic-share-buttons-container ul.shareaholic-share-buttons.shareaholic-no-margin-padding-important{padding:0 !important;margin:0 !important}.shareaholic-share-buttons-container.shareaholic-vertical ul.shareaholic-share-buttons{overflow:visible;height:auto;display:inline-block}.shareaholic-share-buttons-container.shareaholic-vertical ul.shareaholic-share-buttons li.shareaholic-share-button{float:none !important}.shareaholic-share-buttons-container.shareaholic-vertical ul.shareaholic-share-buttons li.shareaholic-share-button .shareaholic-share-button-sizing{float:none}.shareaholic-share-buttons-container.shareaholic-vertical.shareaholic-top-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{display:block}.shareaholic-share-buttons-container.shareaholic-vertical.shareaholic-top-counter li.shareaholic-share-button .shareaholic-share-button-counter{display:none}.shareaholic-share-buttons-container.shareaholic-vertical.shareaholic-side-counter li.shareaholic-share-button.shareaholic-has-shares{width:87px;display:inline-block}.shareaholic-share-buttons-container.shareaholic-vertical.shareaholic-side-counter li.shareaholic-share-button .shareaholic-share-button-counter{float:right !important}.shareaholic-share-buttons-container.shareaholic-horizontal ul.shareaholic-share-buttons li.shareaholic-share-button{float:left !important}.shareaholic-share-buttons-container .shareaholic-custom{margin-left:15px}.shareaholic-share-buttons-container .shareaholic-share-buttons-heading{text-align:left !important;text-indent:0;position:relative}.shareaholic-share-buttons-container .shareaholic-share-buttons-heading img.shareaholic-share-buttons-heading-image{margin:0 0 -30px 0 !important;float:none !important;border:0 !important;outline:none !important;box-shadow:none !important;background:none !important;padding:0 !important}.shareaholic-share-buttons-container.shareaholic-mini:not(.shareaholic-mobile.shareaholic-bottom-align) li.shareaholic-share-button{width:20px !important;height:20px}.shareaholic-share-buttons-container.shareaholic-mini li.shareaholic-share-button .shareaholic-share-button-counter{height:20px;width:35px !important;line-height:20px !important;font-size:11px !important;border-radius:3px}.shareaholic-share-buttons-container.shareaholic-mini.shareaholic-side-counter li.shareaholic-share-button.shareaholic-has-shares{width:62px !important}.shareaholic-share-buttons-container.shareaholic-mini.shareaholic-side-counter li.shareaholic-share-button .shareaholic-share-button-counter{display:none}.shareaholic-share-buttons-container.shareaholic-mini.shareaholic-top-counter li.shareaholic-share-button{height:56px}.shareaholic-share-buttons-container.shareaholic-large li.shareaholic-share-button{width:70px !important;height:70px}.shareaholic-share-buttons-container.shareaholic-large.shareaholic-vertical.shareaholic-inset-counter li.shareaholic-share-button.shareaholic-has-shares{height:82px}.shareaholic-share-buttons-container.shareaholic-large.shareaholic-vertical.shareaholic-inset-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{line-height:32px !important}.shareaholic-share-buttons-container.shareaholic-rectangle ul.shareaholic-share-buttons li.shareaholic-share-button{width:70px !important;height:20px;box-sizing:content-box !important;-webkit-box-sizing:content-box !important;-moz-box-sizing:content-box !important}.shareaholic-share-buttons-container.shareaholic-rectangle ul.shareaholic-share-buttons li.shareaholic-share-button .shr-share-button-verb{display:block;position:absolute;top:0;left:28px;line-height:20px !important;font-weight:600}.shareaholic-share-buttons-container.shareaholic-rectangle ul.shareaholic-share-buttons li.shareaholic-share-button .shareaholic-share-button-counter{height:20px;width:35px !important;line-height:20px !important;font-size:11px;border-radius:3px}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-vertical ul.shareaholic-share-buttons li.shareaholic-share-button{float:none !important}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-vertical ul.shareaholic-share-buttons li.shareaholic-share-button .shareaholic-share-button-container{margin:0 !important}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-vertical.shareaholic-top-counter li.shareaholic-share-button{height:auto !important}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-side-counter li.shareaholic-share-button.shareaholic-has-shares{width:112px !important}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-side-counter li.shareaholic-share-button .shareaholic-share-button-counter{line-height:20px !important;font-size:11px !important;display:none}.shareaholic-share-buttons-container.shareaholic-rectangle.shareaholic-top-counter li.shareaholic-share-button{height:auto !important}.shareaholic-share-buttons-container.shareaholic-flat li.shareaholic-share-button .shareaholic-share-button-counter{border-radius:0}.shareaholic-share-buttons-container.shareaholic-flat.shareaholic-badge-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{background:#d60000 !important;box-shadow:none !important}.shareaholic-share-buttons-container.shareaholic-flat.shareaholic-inset-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-container{padding-bottom:16px !important}.shareaholic-share-buttons-container.shareaholic-flat.shareaholic-inset-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-container .shareaholic-share-button-counter{z-index:1;display:block;color:#fff !important;bottom:0;line-height:23px;position:absolute;margin:0 !important;background:transparent !important;visibility:visible;font-size:12px !important}.shareaholic-share-buttons-container.shareaholic-round{background-color:inherit;background-image:none}.shareaholic-share-buttons-container.shareaholic-round li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{border-radius:0 40px 40px 0 !important;padding:0 7px 0 20px !important;margin:0 0 0 -20px !important;line-height:40px !important;z-index:0}.shareaholic-share-buttons-container.shareaholic-round li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter:after{display:none}.shareaholic-share-buttons-container.shareaholic-round.shareaholic-mini li.shareaholic-share-button .shareaholic-share-button-counter{padding:0 7px 0 10px !important;line-height:20px !important}.shareaholic-share-buttons-container.shareaholic-round.shareaholic-rectangle li.shareaholic-share-button .shareaholic-share-button-counter{padding:0 7px 0 10px}.shareaholic-share-buttons-container.shareaholic-floated{position:fixed;z-index:10000000;top:15%;left:0;line-height:0 !important}.shareaholic-share-buttons-container.shareaholic-floated ul.shareaholic-share-buttons{margin:0 !important;padding:0 !important}.shareaholic-share-buttons-container.shareaholic-floated ul.shareaholic-share-buttons li.shareaholic-total-count{background-color:#fff}.shareaholic-share-buttons-container.shareaholic-floated ul.shareaholic-share-buttons li.shareaholic-share-button{padding:0 !important;font-size:0;line-height:0}.shareaholic-share-buttons-container.shareaholic-floated ul.shareaholic-share-buttons li.shareaholic-share-button .shareaholic-service-icon{border-radius:0 !important}.shareaholic-share-buttons-container.shareaholic-floated ul.shareaholic-share-buttons li.shareaholic-share-button .shareaholic-share-button-counter{padding:0;width:100%}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-right-align{left:auto;right:0}.shareaholic-share-buttons-container.shareaholic-floated .shareaholic-share-buttons-heading{display:none}.shareaholic-share-buttons-container.shareaholic-floated .shareaholic-share-button-sizing{width:100%}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-force-relative{position:relative}.shareaholic-share-buttons-container.shareaholic-wrapped.shareaholic-left-align{float:left}.shareaholic-share-buttons-container.shareaholic-wrapped.shareaholic-right-align{float:right}.shareaholic-share-buttons-container.shareaholic-wrapped.shareaholic-center-align{float:none}.shareaholic-share-buttons-container.shareaholic-diglett li.shareaholic-share-button{height:40px;width:55px !important;padding:5px 0 !important}.shareaholic-share-buttons-container.shareaholic-diglett li.shareaholic-share-button .shareaholic-share-button-sizing{position:relative;height:40px}.shareaholic-share-buttons-container.shareaholic-diglett li.shareaholic-share-button .shareaholic-share-button-sizing a{position:absolute;background-image:none;left:10px;top:10px;height:30px;border-radius:4px 4px 0 0}.shareaholic-share-buttons-container.shareaholic-diglett li.shareaholic-share-button .shareaholic-share-button-sizing:after{background:url("https://m9m6e2w5.stackpathcdn.com/v2/images_0ecbeeff/share-buttons/share-button-shadow.png") 0 100% no-repeat;content:" ";height:15px;position:absolute;left:0;bottom:0;display:block;width:60px;z-index:100}@media (min--moz-device-pixel-ratio:1.3),(-o-min-device-pixel-ratio:2.6/2),(-webkit-min-device-pixel-ratio:1.3),(min-device-pixel-ratio:1.3),(min-resolution:1.3dppx){.shareaholic-share-buttons-container.shareaholic-diglett li.shareaholic-share-button .shareaholic-share-button-sizing:after{background-image:url("https://m9m6e2w5.stackpathcdn.com/v2/images_0ecbeeff/share-buttons/share-button-shadow@2x.png");background-size:60px 39px}}.shareaholic-share-buttons-container.shareaholic-diglett li.shareaholic-share-button:hover .shareaholic-share-button-sizing a{top:5px;opacity:1;height:35px}.shareaholic-share-buttons-container.shareaholic-diglett.shareaholic-vertical li.shareaholic-share-button{width:40px !important;margin:0 auto !important}.shareaholic-share-buttons-container.shareaholic-diglett.shareaholic-vertical li.shareaholic-share-button .shareaholic-share-button-container{margin:0 !important}.shareaholic-share-buttons-container.shareaholic-diglett.shareaholic-vertical.shareaholic-badge-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{right:-18px}.shareaholic-share-buttons-container.shareaholic-diglett.shareaholic-badge-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{top:5px;right:0}.shareaholic-share-buttons-container.shareaholic-diglett.shareaholic-badge-counter li.shareaholic-share-button.shareaholic-has-shares:hover .shareaholic-share-button-counter{top:0}.shareaholic-share-buttons-container.shareaholic-badge-counter li.shareaholic-share-button.shareaholic-has-shares{width:-webkit-min-content}.shareaholic-share-buttons-container.shareaholic-badge-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{display:block;position:absolute;visibility:visible;width:auto;height:auto;top:-2px;right:-3px;text-align:center;min-width:8px !important;padding:1px 4px !important;color:#fff !important;font-family:'Open Sans',arial,sans-serif !important;font-size:10px !important;font-weight:600 !important;background:#d60000 !important;background-image:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#fd7c7e),color-stop(100%,#d60000)) !important;background-image:-webkit-linear-gradient(top,#fd7c7e,#d60000) !important;background-image:-moz-linear-gradient(top,#fd7c7e,#d60000);background-image:-ms-linear-gradient(top,#fd7c7e,#d60000);background-image:-o-linear-gradient(top,#fd7c7e,#d60000);background-image:linear-gradient(top,#fd7c7e,#d60000);-webkit-border-radius:15px !important;border-radius:15px !important;box-shadow:0 2px 2px rgba(0,0,0,0.4);text-shadow:0 -1px 0 rgba(0,0,0,0.2);line-height:14px !important;border:2px solid #fff !important;z-index:1}.shareaholic-share-buttons-container.shareaholic-badge-counter.shareaholic-vertical li.shareaholic-share-button{width:40px !important;margin:0 auto !important;padding:5px 0 !important}.shareaholic-share-buttons-container.shareaholic-side-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{float:right !important;visibility:visible;display:inline-block;box-sizing:content-box;-webkit-box-sizing:content-box;-moz-box-sizing:content-box}.shareaholic-share-buttons-container.shareaholic-side-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter:after{top:50%;right:100%;margin:-5px 0 0 0;border-right-color:#e6e7e9}.shareaholic-share-buttons-container.shareaholic-top-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{visibility:visible}.shareaholic-share-buttons-container.shareaholic-top-counter li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter:after{left:50%;top:100%;margin:0 0 0 -5px;border-top-color:#e6e7e9}.shareaholic-share-buttons-container.shareaholic-top-counter li.shareaholic-share-button .shareaholic-share-button-counter{margin:0 0 7px 0 !important;display:block;visibility:hidden;width:40px !important;height:28px !important;font-size:14px !important;line-height:28px !important}.shareaholic-share-buttons-container.shareaholic-top-counter.shareaholic-vertical li.shareaholic-share-button{margin:0 auto !important;width:40px}.shareaholic-share-buttons-container.shareaholic-top-counter.shareaholic-rectangle li.shareaholic-share-button.shareaholic-has-shares .shareaholic-share-button-counter{line-height:28px !important;width:auto !important}.shareaholic-share-buttons-container li.shareaholic-share-button{list-style:none !important;background:none !important;float:left !important;width:auto;margin:0 !important;padding:4px !important;position:relative;cursor:pointer;box-sizing:content-box;overflow:visible;text-indent:0;clear:none;border:none}.shareaholic-share-buttons-container li.shareaholic-share-button .shareaholic-share-button-sizing{float:left;position:relative;display:inline-block;overflow:visible !important;border:none}.shareaholic-share-buttons-container li.shareaholic-share-button:before{content:"" !important;padding:0 !important;margin:0 !important;display:inline !important;border:none;position:static}.shareaholic-share-buttons-container li.shareaholic-share-button .shareaholic-share-button-counter{margin:0 0 0 7px !important;font-family:'Open Sans',arial,sans-serif !important;width:40px;vertical-align:top;position:relative;text-align:center;background:#e6e7e9 !important;color:#666 !important;font-size:14px !important;font-weight:400;border-radius:4px;line-height:40px;border:0 solid #ccc;display:none;visibility:hidden;cursor:pointer}.shareaholic-share-buttons-container li.shareaholic-share-button .shareaholic-share-button-counter:after{content:"";display:inline-block;position:absolute;border:5px solid transparent}.shareaholic-share-buttons-container li.shareaholic-share-button .shareaholic-share-button-counter:before{content:"";display:inline-block;position:absolute;border:6px solid transparent}.shareaholic-share-buttons-container li.shareaholic-share-button .shr-share-button-verb{display:none;color:#fff !important;font-size:11px !important}.shareaholic-follow-buttons-container ul.shareaholic-share-buttons{margin:0 !important}.shareaholic-follow-buttons-container.shareaholic-center-align .shareaholic-share-buttons-heading{text-align:center !important}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile{display:block}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-top-align{top:0 !important}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-bottom-align{top:inherit;margin-bottom:0;bottom:0;left:0}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-slide-down{bottom:-40px}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-slide-up{margin-top:-40px}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-inset-counter li.shareaholic-has-shares .shareaholic-service-icon{top:-16px}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-inset-counter.shareaholic-slide-down{bottom:-56px}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-inset-counter.shareaholic-slide-up{margin-top:-56px}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-inset-counter.shareaholic-top-align{top:16px !important}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-inset-counter.shareaholic-top-align li{top:-16px}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-inset-counter .shareaholic-share-button-sizing{padding-top:16px}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile.shareaholic-inset-counter .shareaholic-service-icon{top:-8px}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile ul.shareaholic-share-buttons{overflow:visible;height:auto;display:inline-block}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile ul.shareaholic-share-buttons li.shareaholic-share-button{float:left !important;width:auto !important}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile ul.shareaholic-share-buttons li.shareaholic-share-button:hover{opacity:1}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile ul.shareaholic-share-buttons li.shareaholic-share-button .shareaholic-share-button-sizing{float:left}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-mobile ul.shareaholic-share-buttons li.shareaholic-share-button .shareaholic-share-button-sizing a{margin:0 auto !important}.shareaholic-share-buttons-animation-wrapper{position:relative}.shareaholic-share-arrow{position:absolute;bottom:15px;left:0}.shareaholic-share-buttons-container.shareaholic-floated:not(.shareaholic-mini) .shareaholic-share-button-sizing a.shareaholic-service-icon{margin:0 auto !important}.shareaholic-share-buttons-container.shareaholic-floated.shareaholic-right-align.shareaholic-mini .shareaholic-service-icon{float:right}.shareaholic-share-buttons-container.shareaholic-floated .shareaholic-share-button-container:hover{opacity:.65}.shr-share-button-invisible{visibility:hidden}.shareaholic-media-overlay{animation:shr-media-overlay-fadein ease .8s}.shareaholic-media-overlay .shareaholic-share-buttons-container{height:0}.shareaholic-media-overlay li.shareaholic-share-button{padding:0 !important}.shareaholic-media-overlay li.shareaholic-share-button:hover{opacity:1 !important}.shareaholic-media-overlay li.shareaholic-share-button .shareaholic-share-button-container{opacity:1 !important}.shareaholic-media-overlay li.shareaholic-share-button .shareaholic-service-icon:hover{opacity:1 !important}.shareaholic-media-overlay ul.shareaholic-share-buttons{padding:0 !important;margin:0 !important}.shareaholic-media-overlay .shareaholic-shareable_images{width:100%;height:100%}.shareaholic-media-overlay .shareaholic-shareable_images .shareaholic-share-buttons-container{width:100%;height:100%}@keyframes shr-media-overlay-fadein{0%{opacity:0}99%{opacity:1}}@-webkit-keyframes shr-media-overlay-fadein{0%{opacity:0}99%{opacity:1}}</style></div><script data-cfasync="false" async="" id="shr-partners" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/partners.js.download"></script><iframe __idm_frm__="360" style="display: none;" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/saved_resource(7).html"></iframe><iframe id="google_osd_static_frame_3229718905710" name="google_osd_static_frame" __idm_frm__="362" style="display: none; width: 0px; height: 0px;" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/saved_resource(8).html"></iframe><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" __idm_frm__="367" title="Twitter analytics iframe" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/saved_resource(9).html"></iframe><script async="" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/sholic.js.download"></script><script async="" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/taglw.aspx"></script><script async="" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/beacon.js.download"></script><script async="" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/afsh.js.download"></script><iframe src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/saved_resource(10).html" name="__bkframe" height="0" width="0" style="display: none; position: absolute; clip: rect(0px, 0px, 0px, 0px);" __idm_frm__="370"></iframe><script src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/bk-coretag.js.download"></script></body><iframe id="google_esf" name="google_esf" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/zrt_lookup.html" data-ad-client="ca-pub-3224905059349112" style="display: none;"></iframe><ins class="adsbygoogle adsbygoogle-noablate" data-adsbygoogle-status="done" style="display: none !important; width: 100vw !important; height: 100vh !important; inset: 0px auto auto 0px !important; clear: none !important; float: none !important; margin: 0px !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; padding: 0px !important; position: fixed !important; vertical-align: baseline !important; visibility: visible !important; z-index: 2147483647 !important; background-color: transparent;" aria-hidden="true" data-vignette-loaded="true"><ins id="aswift_6_expand" style="display: inline-table !important; border: none !important; height: 100vh !important; margin: 0px !important; padding: 0px !important; position: relative !important; visibility: visible !important; width: 100vw !important; background-color: transparent !important; inset: auto !important; clear: none !important; float: none !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; vertical-align: baseline !important; z-index: auto !important;" tabindex="0" title="Advertisement" aria-label="Advertisement"><ins id="aswift_6_anchor" style="display: block !important; border: none !important; height: 100vh !important; margin: 0px !important; padding: 0px !important; position: relative !important; visibility: visible !important; width: 100vw !important; background-color: transparent !important; inset: auto !important; clear: none !important; float: none !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; vertical-align: baseline !important; z-index: auto !important;"><iframe id="aswift_6" name="" sandbox="allow-forms allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation" width="" height="" frameborder="0" src="./Migration and Schema Builder in Laravel 7 _ Flowkl_files/zrt_lookup(1).html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" style="width: 100vw !important; height: 100vh !important; inset: 0px auto auto 0px !important; position: absolute !important; clear: none !important; display: inline !important; float: none !important; margin: 0px !important; max-height: none !important; max-width: none !important; opacity: 1 !important; overflow: visible !important; padding: 0px !important; vertical-align: baseline !important; visibility: visible !important; z-index: auto !important;" data-google-container-id="a!6" data-google-query-id="CIG29emE2u4CFQ2ScAodiuoEuA" data-load-complete="true"></iframe></ins></ins></ins></html>
